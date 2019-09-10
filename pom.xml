@@ -145,7 +145,7 @@
                             <goal>prepare-agent</goal>
                         </goals>
                         <configuration>
-                            <includes>${project.build.directory}/generated-sources/antlr4/**</includes>
+                            <includes>${project.build.directory}/generated-sources/antlr4/*</includes>
                         </configuration>
                     </execution>
                 </executions>
