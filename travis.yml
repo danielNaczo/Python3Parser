@@ -1,0 +1,11 @@
+sudo: false
+language: java
+install: mvn -B install -DskipTests=true
+script: mvn -B test
+cache:
+  directories:
+    - $HOME/.ivy2
+jdk:
+  - openjdk8
+after_success:
+  - mvn -B test jacoco:report coveralls:report
