@@ -131,7 +131,9 @@
                 <artifactId>coveralls-maven-plugin</artifactId>
                 <version>4.3.0</version>
                 <configuration>
-                    <sourceDirectories>${project.build.directory}/generated-sources/antlr4/</sourceDirectories>
+                    <sourceDirectories>
+                        <sourceDirectory>${project.build.directory}/generated-sources/antlr4</sourceDirectory>
+                    </sourceDirectories>
                 </configuration>
             </plugin>
             <plugin>
@@ -144,9 +146,6 @@
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
-                        <configuration>
-                            <includes>${project.build.directory}/generated-sources/antlr4/*</includes>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
