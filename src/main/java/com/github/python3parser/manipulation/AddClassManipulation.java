@@ -18,8 +18,8 @@ import com.github.python3parser.model.stmts.flowStmts.Return;
 
 public class AddClassManipulation {
 	public static void main(String[] args) {
-		//createClass();
-		createForStmt();
+		createClass();
+		//createForStmt();
 	}
 
 	private static void createClass() {
