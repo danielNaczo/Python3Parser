@@ -144,8 +144,7 @@ public class StatementPrettyPrintVisitor extends GenericUnsupportedASTVisitor<St
 			string = string.concat(param.getIndentationString());
 			string = string.concat("else:");
 			string = string.concat("\n");
-			string = string.concat(orElse.get().accept(new StatementPrettyPrintVisitor(),
-					new IndentationPrettyPrint(param.getIndentationLevel() + 1)));
+			string = bodyToString(param, string, orElse.get());
 		}
 
 		return string;
@@ -379,8 +378,7 @@ public class StatementPrettyPrintVisitor extends GenericUnsupportedASTVisitor<St
 			string = string.concat(param.getIndentationString());
 			string = string.concat("else:");
 			string = string.concat("\n");
-			string = string.concat(orElse.get().accept(new StatementPrettyPrintVisitor(),
-					new IndentationPrettyPrint(param.getIndentationLevel() + 1)));
+			string = bodyToString(param, string, orElse.get());
 		}
 
 		return string;
@@ -648,30 +646,33 @@ public class StatementPrettyPrintVisitor extends GenericUnsupportedASTVisitor<St
 		string = string.concat(param.getIndentationString());
 		string = string.concat("try:");
 		string = string.concat("\n");
-		string = string.concat(body.accept(new StatementPrettyPrintVisitor(),
-				new IndentationPrettyPrint(param.getIndentationLevel() + 1)));
+		
+		if (body == null) {
+			throw new Python3ParserException("Body of 'Try' is empty.");
+		}
+		string = bodyToString(param, string, body);
 
 		for (int i = 0; i < handlers.size(); i++) {
 			string = string.concat(handlers.get(i).accept(new ExceptHandlerPrettyPrintVisitor(),
 					new IndentationPrettyPrint(param.getIndentationLevel())));
-			string = string.concat(handlersBody.get(i).accept(new StatementPrettyPrintVisitor(),
-					new IndentationPrettyPrint(param.getIndentationLevel() + 1)));
+			if (handlersBody.get(i) == null) {
+				throw new Python3ParserException("Body of handler is empty.");
+			}
+			string = bodyToString(param, string, handlersBody.get(i));
 		}
 
 		if (orElse.isPresent()) {
 			string = string.concat(param.getIndentationString());
 			string = string.concat("else:");
 			string = string.concat("\n");
-			string = string.concat(orElse.get().accept(new StatementPrettyPrintVisitor(),
-					new IndentationPrettyPrint(param.getIndentationLevel() + 1)));
+			string = bodyToString(param, string, orElse.get());
 		}
 
 		if (finalBody.isPresent()) {
 			string = string.concat(param.getIndentationString());
 			string = string.concat("finally:");
 			string = string.concat("\n");
-			string = string.concat(finalBody.get().accept(new StatementPrettyPrintVisitor(),
-					new IndentationPrettyPrint(param.getIndentationLevel() + 1)));
+			string = bodyToString(param, string, finalBody.get());
 		}
 
 		return string;

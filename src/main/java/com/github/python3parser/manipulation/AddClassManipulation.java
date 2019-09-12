@@ -14,12 +14,15 @@ import com.github.python3parser.model.stmts.compoundStmts.forStmts.For;
 import com.github.python3parser.model.stmts.compoundStmts.functionStmts.FunctionDef;
 import com.github.python3parser.model.stmts.compoundStmts.functionStmts.parameters.DefaultParameter;
 import com.github.python3parser.model.stmts.compoundStmts.functionStmts.parameters.Parameter;
+import com.github.python3parser.model.stmts.compoundStmts.tryExceptStmts.ExceptHandler;
+import com.github.python3parser.model.stmts.compoundStmts.tryExceptStmts.Try;
 import com.github.python3parser.model.stmts.flowStmts.Return;
 
 public class AddClassManipulation {
 	public static void main(String[] args) {
-		createClass();
+		//createClass();
 		//createForStmt();
+		createTryStmt();
 	}
 
 	private static void createClass() {
@@ -56,6 +59,23 @@ public class AddClassManipulation {
 		forStmt.setIter(new Name("list"));
 		forStmt.addStatement(new Name("hello"));
 		forStmt.addStatement(new Name("world"));
+		forStmt.setOrElse(Optional.ofNullable(new Name("orElse")));
+		function.addStatement(new Name("next"));
+		
+		module.printInConsole();
+	}
+
+	private static void createTryStmt() {
+		Module module = new Module();
+		ClassDef clazz = module.addClass(new ClassDef("Clazzzzz"));
+		Try tryStmt = (Try) clazz.addStatement(new Try());
+		tryStmt.addStatement(new Name("Hello"));
+		tryStmt.addStatement(new Name("World"));
+		ExceptHandler handler = tryStmt.addHandlerWithBody(new ExceptHandler(new Name("first"), null), new Name("body1"));
+		tryStmt.addStatementToHandler(handler, new Name("body2"));
+		tryStmt.setOrElse(Optional.ofNullable(new Name("else")));
+		tryStmt.setFinalBody(Optional.ofNullable(new Name("finalBody")));
+		
 		module.printInConsole();
 	}
 }

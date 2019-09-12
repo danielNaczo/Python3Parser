@@ -1,9 +1,12 @@
 package com.github.python3parser.model.stmts.compoundStmts.tryExceptStmts;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 
+import com.github.python3parser.model.expr.Expression;
 import com.github.python3parser.model.stmts.Body;
 import com.github.python3parser.model.stmts.Statement;
 import com.github.python3parser.visitors.basic.Python3ASTVisitor;
@@ -32,11 +35,32 @@ public class Try extends Statement{
 	Optional<Statement> orElse;
 	Optional<Statement> finalBody;
 	
+	public Try() {
+		this(null, null, null, null, null);
+	}
+	
+	public Try(Statement body) {
+		this(body, null, null, null, null);
+	}
+
+	public Try(Statement body, List<ExceptHandler> handlers) {
+		this(body, handlers, null, null, null);
+	}
+	
+	public Try(Statement body, List<ExceptHandler> handlers, List<Statement> handlersBody) {
+		this(body, handlers, handlersBody, null, null);
+	}
+	
+	public Try(Statement body, List<ExceptHandler> handlers, List<Statement> handlersBody,
+			Statement orElse) {
+		this(body, handlers, handlersBody, orElse, null);
+	}
+	
 	public Try(Statement body, List<ExceptHandler> handlers, List<Statement> handlersBody,
 			Statement orElse, Statement finalBody) {
 		this.body = body;
-		this.handlers = handlers;
-		this.handlersBody = handlersBody;
+		this.handlers = (handlers != null) ? handlers : new ArrayList<>();
+		this.handlersBody = (handlersBody != null) ? handlersBody : new ArrayList<>();
 		this.orElse = Optional.ofNullable(orElse);
 		this.finalBody = Optional.ofNullable(finalBody);
 		setParentToBodies();
@@ -86,6 +110,52 @@ public class Try extends Statement{
 		setParentToFinalBody();
 	}
 	
+	public Statement addStatement(Statement statement) {
+		if (this.body == null) {
+			this.body = statement instanceof Expression ? (Expression) statement : statement;
+			return statement;
+		}
+		this.body = transformStmtToBody();
+		Body body = (Body) this.body;
+		body.addStatement(statement);
+		return statement;
+	}
+	
+	public ExceptHandler addHandlerWithBody(ExceptHandler handler, Statement handlerBody) {
+		this.handlers.add(handler);
+		this.handlersBody.add(handlerBody);
+		return handler;
+	}
+	
+	public Statement addStatementToHandler(ExceptHandler handler, Statement statement) {
+		if (!this.handlers.contains(handler)) throw new NoSuchElementException("Handler does not exist in attribute 'handlers'.");
+		int indexOfHandler = this.handlers.indexOf(handler);
+		if (this.handlersBody.get(indexOfHandler) instanceof Body) {
+			Body body = (Body) this.handlersBody.get(indexOfHandler);
+			body.addStatement(statement);
+		} else {
+			List<Statement> statements = new ArrayList<>();
+			statements.add(this.handlersBody.get(indexOfHandler));
+			statements.add(statement);
+			Body body = new Body(statements);
+			body.setParentStmt(this);
+			this.handlersBody.remove(indexOfHandler);
+			this.handlersBody.add(indexOfHandler, body);
+		}
+		
+		return statement;
+	}
+	
+	private Body transformStmtToBody() {
+		if (this.body instanceof Body) return (Body) this.body;
+		Statement statement = this.body;
+		List<Statement> statements = new ArrayList<>();
+		statements.add(statement);
+		Body body = new Body(statements);
+		body.setParentStmt(this);
+		return body;
+	}
+	
 	private void setParentToBodies() {
 		setParentToBody();
 		setParentToHandlersBody();
@@ -98,6 +168,7 @@ public class Try extends Statement{
 	}
 
 	private void setParentToHandlersBody() {
+		if (handlersBody == null) return;
 		for (Statement body : handlersBody) {
 			if (body instanceof Body) ((Body) body).setParentStmt(this);
 		}
