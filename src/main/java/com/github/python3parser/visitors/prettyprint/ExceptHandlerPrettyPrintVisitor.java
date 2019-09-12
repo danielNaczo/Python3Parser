@@ -13,18 +13,18 @@ public class ExceptHandlerPrettyPrintVisitor extends GenericUnsupportedASTVisito
 		String string = new String();
 		string = string.concat(param.getIndentationString());
 		
-		Optional<Expression> test = exceptHandler.getTest();
-		Optional<Identifier> name = exceptHandler.getName();
+		Optional<Expression> error = exceptHandler.getError();
+		Optional<Identifier> errorAsName = exceptHandler.getErrorAsName();
 		
 		string = string.concat("except");
 		
-		if (test.isPresent()) {
+		if (error.isPresent()) {
 			string = string.concat(" ");
-			string = string.concat(test.get().accept(new ExpressionPrettyPrintVisitor(), new IndentationPrettyPrint(param.getIndentationLevel())));
+			string = string.concat(error.get().accept(new ExpressionPrettyPrintVisitor(), new IndentationPrettyPrint(param.getIndentationLevel())));
 			
-			if (name.isPresent()) {
+			if (errorAsName.isPresent()) {
 				string = string.concat(" as ");
-				string = string.concat(name.get().getName());
+				string = string.concat(errorAsName.get().getName());
 			}
 		}
 		

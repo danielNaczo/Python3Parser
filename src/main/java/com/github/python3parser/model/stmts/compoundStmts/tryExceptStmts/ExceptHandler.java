@@ -6,6 +6,7 @@ import java.util.Optional;
 import com.github.python3parser.model.AST;
 import com.github.python3parser.model.Identifier;
 import com.github.python3parser.model.expr.Expression;
+import com.github.python3parser.model.expr.atoms.Name;
 import com.github.python3parser.visitors.basic.Python3ASTVisitor;
 
 //differs from original AST grammar
@@ -15,28 +16,48 @@ import com.github.python3parser.visitors.basic.Python3ASTVisitor;
 // except test as name:
 public class ExceptHandler implements AST {
 	
-	Optional<Expression> test;
-	Optional<Identifier> name;
+	Optional<Expression> error;
+	Optional<Identifier> errorAsName;
 	
-	public ExceptHandler(Expression test, Identifier name) {
-		this.test = Optional.ofNullable(test);
-		this.name = Optional.ofNullable(name);
+	public ExceptHandler() {
+		this(null, (Identifier) null);
 	}
 	
-	public Optional<Expression> getTest() {
-		return test;
+	public ExceptHandler(String error) {
+		this(new Name(error), (Identifier) null);
 	}
 	
-	public void setTest(Optional<Expression>test) {
-		this.test = test;
+	public ExceptHandler(Expression error) {
+		this(error, (Identifier) null);
 	}
 	
-	public Optional<Identifier> getName() {
-		return name;
+	public ExceptHandler(String error, String errorAsName) {
+		this(new Name(error), new Identifier(errorAsName));
 	}
 	
-	public void setName(Optional<Identifier>name) {
-		this.name = name;
+	public ExceptHandler(Expression error, String errorAsName) {
+		this(error, new Identifier(errorAsName));
+	}
+	
+	public ExceptHandler(Expression error, Identifier errorAsName) {
+		this.error = Optional.ofNullable(error);
+		this.errorAsName = Optional.ofNullable(errorAsName);
+	}
+	
+	public Optional<Expression> getError() {
+		return error;
+	}
+	
+	public void setError(Optional<Expression> error) {
+		this.error = error;
+	}
+	
+	public Optional<Identifier> getErrorAsName() {
+		return errorAsName;
+	}
+	
+	public void setErrorAsName(Optional<Identifier> errorAsName) {
+		this.errorAsName = errorAsName;
 	}
 	
 	public <R, P> R accept(Python3ASTVisitor<R, P> visitor, P param) {
@@ -48,12 +69,12 @@ public class ExceptHandler implements AST {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		ExceptHandler that = (ExceptHandler) o;
-		return Objects.equals(test, that.test) &&
-				Objects.equals(name, that.name);
+		return Objects.equals(error, that.error) &&
+				Objects.equals(errorAsName, that.errorAsName);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(test, name);
+		return Objects.hash(error, errorAsName);
 	}
 }

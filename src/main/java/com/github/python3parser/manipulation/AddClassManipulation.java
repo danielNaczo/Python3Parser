@@ -71,7 +71,7 @@ public class AddClassManipulation {
 		Try tryStmt = (Try) clazz.addStatement(new Try());
 		tryStmt.addStatement(new Name("Hello"));
 		tryStmt.addStatement(new Name("World"));
-		ExceptHandler handler = tryStmt.addHandlerWithBody(new ExceptHandler(new Name("first"), null), new Name("body1"));
+		ExceptHandler handler = tryStmt.addHandlerWithBody(new ExceptHandler(), new Name("body1"));
 		tryStmt.addStatementToHandler(handler, new Name("body2"));
 		tryStmt.setOrElse(Optional.ofNullable(new Name("else")));
 		tryStmt.setFinalBody(Optional.ofNullable(new Name("finalBody")));

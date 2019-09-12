@@ -906,10 +906,10 @@ public class ModifierVisitor<P> implements Python3ASTVisitor<AST, P> {
 
 	@Override
 	public AST visitExceptHandler(ExceptHandler exceptHandler, P param) {
-		Optional<Expression> test = modifyOptional(exceptHandler.getTest(), param);
-		Optional<Identifier> name = modifyOptional(exceptHandler.getName(), param);
-		exceptHandler.setTest(test);
-		exceptHandler.setName(name);
+		Optional<Expression> error = modifyOptional(exceptHandler.getError(), param);
+		Optional<Identifier> errorAsName = modifyOptional(exceptHandler.getErrorAsName(), param);
+		exceptHandler.setError(error);
+		exceptHandler.setErrorAsName(errorAsName);
 		return exceptHandler;
 	}
 
