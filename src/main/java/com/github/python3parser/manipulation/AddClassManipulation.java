@@ -25,7 +25,6 @@ import com.github.python3parser.model.stmts.compoundStmts.withStmts.With;
 import com.github.python3parser.model.stmts.compoundStmts.withStmts.WithItem;
 import com.github.python3parser.model.stmts.flowStmts.Break;
 import com.github.python3parser.model.stmts.flowStmts.Return;
-import com.github.python3parser.model.stmts.flowStmts.YieldStmt;
 
 public class AddClassManipulation {
 	public static void main(String[] args) {
@@ -127,6 +126,7 @@ public class AddClassManipulation {
 		
 		Expression elifTest = ifStmt.addElifTestWithBody(new Name("testElif"), new Name("elifBody1.1"));
 		ifStmt.addStatementToElif(elifTest, new Name("elifBody1.2"));
+		ifStmt.addStatementToElif(elifTest, new Yield(null));
 		
 		Expression elifTest2 = ifStmt.addElifTestWithBody(new Name("testElif2"), new Name("elifBody2.1"));
 		ifStmt.addStatementToElif(elifTest2, new Name("elifBody2.2"));
@@ -134,7 +134,8 @@ public class AddClassManipulation {
 		ifStmt.setElseBody(Optional.ofNullable(new Name("elseBody")));
 		
 		clazz.addStatement(new Name("variable"));
-		clazz.addStatement(new YieldStmt());
+		clazz.addStatement(new Yield(null));
+		
 		module.printInConsole();
 	}
 }

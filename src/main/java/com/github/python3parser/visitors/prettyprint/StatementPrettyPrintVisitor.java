@@ -26,7 +26,6 @@ import com.github.python3parser.model.stmts.flowStmts.Break;
 import com.github.python3parser.model.stmts.flowStmts.Continue;
 import com.github.python3parser.model.stmts.flowStmts.Raise;
 import com.github.python3parser.model.stmts.flowStmts.Return;
-import com.github.python3parser.model.stmts.flowStmts.YieldStmt;
 import com.github.python3parser.model.stmts.importStmts.Alias;
 import com.github.python3parser.model.stmts.importStmts.Import;
 import com.github.python3parser.model.stmts.importStmts.ImportFrom;
@@ -764,17 +763,6 @@ public class StatementPrettyPrintVisitor extends GenericUnsupportedASTVisitor<St
 		string = bodyToString(param, string, body);
 		string = string.concat("\n");
 
-		return string;
-	}
-
-	@Override
-	public String visitYieldStmt(YieldStmt yieldStmt, IndentationPrettyPrint param) {
-		String string = new String();
-		Expression yield = yieldStmt.getYield();
-		string = string.concat(param.getIndentationString());
-		string = string.concat(yield.accept(new ExpressionPrettyPrintVisitor(),
-				new IndentationPrettyPrint(param.getIndentationLevel())));
-		string = string.concat("\n");
 		return string;
 	}
 

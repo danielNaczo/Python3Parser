@@ -95,7 +95,6 @@ import com.github.python3parser.model.stmts.flowStmts.Break;
 import com.github.python3parser.model.stmts.flowStmts.Continue;
 import com.github.python3parser.model.stmts.flowStmts.Raise;
 import com.github.python3parser.model.stmts.flowStmts.Return;
-import com.github.python3parser.model.stmts.flowStmts.YieldStmt;
 import com.github.python3parser.model.stmts.importStmts.Alias;
 import com.github.python3parser.model.stmts.importStmts.Import;
 import com.github.python3parser.model.stmts.importStmts.ImportFrom;
@@ -301,8 +300,6 @@ public interface Python3ASTVisitor<R, P> {
 	R visitWhile(While whileElement, P param);
 	
 	R visitWith(With with, P param);
-	
-	R visitYieldStmt(YieldStmt yieldStmt, P param);
 	
 	R visitInvert(Invert invert, P param);
 	

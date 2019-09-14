@@ -95,7 +95,6 @@ import com.github.python3parser.model.stmts.flowStmts.Break;
 import com.github.python3parser.model.stmts.flowStmts.Continue;
 import com.github.python3parser.model.stmts.flowStmts.Raise;
 import com.github.python3parser.model.stmts.flowStmts.Return;
-import com.github.python3parser.model.stmts.flowStmts.YieldStmt;
 import com.github.python3parser.model.stmts.importStmts.Alias;
 import com.github.python3parser.model.stmts.importStmts.Import;
 import com.github.python3parser.model.stmts.importStmts.ImportFrom;
@@ -848,13 +847,6 @@ public class ModifierVisitor<P> implements Python3ASTVisitor<AST, P> {
 		with.setItems(items);
 		with.setBody(body);
 		return with;
-	}
-
-	@Override
-	public AST visitYieldStmt(YieldStmt yieldStmt, P param) {
-		Expression yield = (Expression) yieldStmt.getYield().accept(this, param);
-		yieldStmt.setYield(yield);
-		return yieldStmt;
 	}
 
 	@Override

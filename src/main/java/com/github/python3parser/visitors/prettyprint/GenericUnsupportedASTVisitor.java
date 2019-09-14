@@ -97,7 +97,6 @@ import com.github.python3parser.model.stmts.flowStmts.Break;
 import com.github.python3parser.model.stmts.flowStmts.Continue;
 import com.github.python3parser.model.stmts.flowStmts.Raise;
 import com.github.python3parser.model.stmts.flowStmts.Return;
-import com.github.python3parser.model.stmts.flowStmts.YieldStmt;
 import com.github.python3parser.model.stmts.importStmts.Alias;
 import com.github.python3parser.model.stmts.importStmts.Import;
 import com.github.python3parser.model.stmts.importStmts.ImportFrom;
@@ -589,11 +588,6 @@ public class GenericUnsupportedASTVisitor<R, P> implements Python3ASTVisitor<R, 
 
 	@Override
 	public R visitWith(With with, P param) {
-		throw new UnsupportedASTException();
-	}
-
-	@Override
-	public R visitYieldStmt(YieldStmt yieldStmt, P param) {
 		throw new UnsupportedASTException();
 	}
 
