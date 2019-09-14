@@ -9,7 +9,9 @@ import com.github.python3parser.model.expr.atoms.Name;
 import com.github.python3parser.model.expr.atoms.Num;
 import com.github.python3parser.model.expr.atoms.trailers.arguments.Arguments;
 import com.github.python3parser.model.mods.Module;
+import com.github.python3parser.model.stmts.Body;
 import com.github.python3parser.model.stmts.compoundStmts.ClassDef;
+import com.github.python3parser.model.stmts.compoundStmts.While;
 import com.github.python3parser.model.stmts.compoundStmts.forStmts.For;
 import com.github.python3parser.model.stmts.compoundStmts.functionStmts.FunctionDef;
 import com.github.python3parser.model.stmts.compoundStmts.functionStmts.parameters.DefaultParameter;
@@ -25,7 +27,8 @@ public class AddClassManipulation {
 		//createClass();
 		//createForStmt();
 		//createTryStmt();
-		createWithStmt();
+		//createWithStmt();
+		createWhileStmt();
 	}
 
 	private static void createClass() {
@@ -92,6 +95,19 @@ public class AddClassManipulation {
 		withstmt.addWithItem(new WithItem("secondItem", new Name("item")));
 		withstmt.addStatement(new Name("body"));
 		
+		module.printInConsole();
+	}
+
+	private static void createWhileStmt() {
+		Module module = new Module();
+		ClassDef clazz = module.addClass(new ClassDef("Clazzzzz"));
+		
+		While whileStmt = (While) clazz.addStatement(new While("test"));
+		whileStmt.addStatement(new Name("body"));
+		Body bodyOrElse = new Body();
+		bodyOrElse.addStatement(new Name("orElseBody1"));
+		bodyOrElse.addStatement(new Name("orElseBody2"));
+		whileStmt.setOrElse(Optional.ofNullable(bodyOrElse));
 		module.printInConsole();
 	}
 }

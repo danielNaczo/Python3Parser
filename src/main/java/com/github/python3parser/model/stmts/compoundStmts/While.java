@@ -1,14 +1,15 @@
 package com.github.python3parser.model.stmts.compoundStmts;
 
 import com.github.python3parser.model.expr.Expression;
+import com.github.python3parser.model.expr.atoms.Name;
 import com.github.python3parser.model.stmts.Body;
 import com.github.python3parser.model.stmts.Statement;
 import com.github.python3parser.visitors.basic.Python3ASTVisitor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-
-//differs from original AST grammar
 
 // e.g.:
 
@@ -23,6 +24,26 @@ public class While extends Statement{
 	Expression test;
 	Statement body;
 	Optional<Statement> orElse;
+	
+	public While() {
+		this(null, null, null);
+	}
+	
+	public While(String test) {
+		this(new Name(test), null, null);
+	}
+	
+	public While(Expression test) {
+		this(test, null, null);
+	}
+	
+	public While(String test, Statement body) {
+		this(new Name(test), body, null);
+	}
+	
+	public While(Expression test, Statement body) {
+		this(test, body, null);
+	}
 	
 	public While(Expression test, Statement body, Statement orElse) {
 		this.test = test;
@@ -55,6 +76,27 @@ public class While extends Statement{
 	public void setOrElse(Optional<Statement> orElse) {
 		this.orElse = orElse;
 		setParentToOrElse();
+	}
+	
+	public Statement addStatement(Statement statement) {
+		if (this.body == null) {
+			this.body = statement instanceof Expression ? (Expression) statement : statement;
+			return statement;
+		}
+		this.body = transformStmtToBody();
+		Body body = (Body) this.body;
+		body.addStatement(statement);
+		return statement;
+	}
+	
+	private Body transformStmtToBody() {
+		if (this.body instanceof Body) return (Body) this.body;
+		Statement statement = this.body;
+		List<Statement> statements = new ArrayList<>();
+		statements.add(statement);
+		Body body = new Body(statements);
+		body.setParentStmt(this);
+		return body;
 	}
 	
 	private void setParentToBodies() {

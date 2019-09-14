@@ -692,18 +692,24 @@ public class StatementPrettyPrintVisitor extends GenericUnsupportedASTVisitor<St
 
 		string = string.concat(param.getIndentationString());
 		string = string.concat("while ");
+		if (test == null) {
+			throw new Python3ParserException("'Test' in 'While' does not exist.");
+		}
 		string = string.concat(test.accept(new ExpressionPrettyPrintVisitor(),
 				new IndentationPrettyPrint(param.getIndentationLevel())));
 		string = string.concat(":");
 		string = string.concat("\n");
+		
+		if (body == null) {
+			throw new Python3ParserException("Body of 'While' is empty.");
+		}
 		string = bodyToString(param, string, body);
 
 		if (orElse.isPresent()) {
 			string = string.concat(param.getIndentationString());
 			string = string.concat("else:");
 			string = string.concat("\n");
-			string = string.concat(orElse.get().accept(new StatementPrettyPrintVisitor(),
-					new IndentationPrettyPrint(param.getIndentationLevel() + 1)));
+			string = bodyToString(param, string, orElse.get());
 		}
 
 		return string;
