@@ -205,6 +205,9 @@ public class StatementPrettyPrintVisitor extends GenericUnsupportedASTVisitor<St
 		Statement body = asyncWith.getBody();
 
 		string = string.concat("async with ");
+		if (items == null || items.isEmpty()) {
+			throw new Python3ParserException("'AsyncWith' has no withItems.");
+		}
 
 		for (int i = 0; i < items.size(); i++) {
 			string = string.concat(items.get(i).accept(new WithItemPrettyPrintVisitor(),
@@ -217,9 +220,10 @@ public class StatementPrettyPrintVisitor extends GenericUnsupportedASTVisitor<St
 
 		string = string.concat(":");
 		string = string.concat("\n");
-
+		if (body == null) {
+			throw new Python3ParserException("Body of 'AsyncWith' is empty.");
+		}
 		string = bodyToString(param, string, body);
-
 		string = string.concat("\n");
 
 		return string;
@@ -714,6 +718,9 @@ public class StatementPrettyPrintVisitor extends GenericUnsupportedASTVisitor<St
 		Statement body = with.getBody();
 
 		string = string.concat("with ");
+		if (items == null || items.isEmpty()) {
+			throw new Python3ParserException("'With' has no withItems.");
+		}
 
 		for (int i = 0; i < items.size(); i++) {
 			string = string.concat(items.get(i).accept(new WithItemPrettyPrintVisitor(),
@@ -726,9 +733,10 @@ public class StatementPrettyPrintVisitor extends GenericUnsupportedASTVisitor<St
 
 		string = string.concat(":");
 		string = string.concat("\n");
-
+		if (body == null) {
+			throw new Python3ParserException("Body of 'With' is empty.");
+		}
 		string = bodyToString(param, string, body);
-
 		string = string.concat("\n");
 
 		return string;

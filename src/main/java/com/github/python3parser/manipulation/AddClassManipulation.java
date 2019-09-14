@@ -16,13 +16,16 @@ import com.github.python3parser.model.stmts.compoundStmts.functionStmts.paramete
 import com.github.python3parser.model.stmts.compoundStmts.functionStmts.parameters.Parameter;
 import com.github.python3parser.model.stmts.compoundStmts.tryExceptStmts.ExceptHandler;
 import com.github.python3parser.model.stmts.compoundStmts.tryExceptStmts.Try;
+import com.github.python3parser.model.stmts.compoundStmts.withStmts.With;
+import com.github.python3parser.model.stmts.compoundStmts.withStmts.WithItem;
 import com.github.python3parser.model.stmts.flowStmts.Return;
 
 public class AddClassManipulation {
 	public static void main(String[] args) {
 		//createClass();
 		//createForStmt();
-		createTryStmt();
+		//createTryStmt();
+		createWithStmt();
 	}
 
 	private static void createClass() {
@@ -75,6 +78,19 @@ public class AddClassManipulation {
 		tryStmt.addStatementToHandler(handler, new Name("body2"));
 		tryStmt.setOrElse(Optional.ofNullable(new Name("else")));
 		tryStmt.setFinalBody(Optional.ofNullable(new Name("finalBody")));
+		
+		module.printInConsole();
+	}
+
+	private static void createWithStmt() {
+		Module module = new Module();
+		ClassDef clazz = module.addClass(new ClassDef("Clazzzzz"));
+		
+		List<WithItem> itemList = new ArrayList<>();
+		itemList.add(new WithItem("firstItem"));
+		With withstmt = (With) clazz.addStatement(new With(itemList));
+		withstmt.addWithItem(new WithItem("secondItem", new Name("item")));
+		withstmt.addStatement(new Name("body"));
 		
 		module.printInConsole();
 	}

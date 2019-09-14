@@ -1,14 +1,13 @@
 package com.github.python3parser.model.stmts.compoundStmts.withStmts;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.github.python3parser.model.expr.Expression;
 import com.github.python3parser.model.stmts.Body;
 import com.github.python3parser.model.stmts.Statement;
 import com.github.python3parser.visitors.basic.Python3ASTVisitor;
-
-//differs from Original AST grammar
-
 
 //e.g.:
 
@@ -20,8 +19,16 @@ public class With extends Statement{
 	List<WithItem> items;
 	Statement body;
 	
+	public With() {
+		this(null, null);
+	}
+	
+	public With(List<WithItem> items) {
+		this(items, null);
+	}
+	
 	public With(List<WithItem> items, Statement body) {
-		this.items = items;
+		this.items = (items != null) ? items : new ArrayList<>();
 		this.body = body;
 		setParentToBody();
 	}
@@ -43,8 +50,34 @@ public class With extends Statement{
 		setParentToBody();
 	}
 	
+	public Statement addStatement(Statement statement) {
+		if (this.body == null) {
+			this.body = statement instanceof Expression ? (Expression) statement : statement;
+			return statement;
+		}
+		this.body = transformStmtToBody();
+		Body body = (Body) this.body;
+		body.addStatement(statement);
+		return statement;
+	}
+	
+	public WithItem addWithItem(WithItem item) {
+		this.items.add(item);
+		return item;
+	}
+	
 	private void setParentToBody() {
 		if (body instanceof Body) ((Body) body).setParentStmt(this);
+	}
+	
+	private Body transformStmtToBody() {
+		if (this.body instanceof Body) return (Body) this.body;
+		Statement statement = this.body;
+		List<Statement> statements = new ArrayList<>();
+		statements.add(statement);
+		Body body = new Body(statements);
+		body.setParentStmt(this);
+		return body;
 	}
 	
 	public <R, P> R accept(Python3ASTVisitor<R, P> visitor, P param) {

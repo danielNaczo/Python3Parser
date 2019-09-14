@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.github.python3parser.model.AST;
 import com.github.python3parser.model.expr.Expression;
+import com.github.python3parser.model.expr.atoms.Name;
 import com.github.python3parser.visitors.basic.Python3ASTVisitor;
 
 // e.g.:
@@ -14,6 +15,18 @@ public class WithItem implements AST {
 
 	Expression contextExpr;
 	Optional<Expression> optionalVars;
+	
+	public WithItem(String contextExpression) {
+		this(new Name(contextExpression), null);
+	}
+	
+	public WithItem(Expression contextExpr) {
+		this(contextExpr, null);
+	}
+	
+	public WithItem(String contextExpr, Expression optionalVars) {
+		this(new Name(contextExpr), optionalVars);
+	}
 	
 	public WithItem(Expression contextExpr, Expression optionalVars) {
 		this.contextExpr = contextExpr;
