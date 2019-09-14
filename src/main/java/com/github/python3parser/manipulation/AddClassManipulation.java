@@ -7,10 +7,12 @@ import java.util.Optional;
 import com.github.python3parser.model.expr.Expression;
 import com.github.python3parser.model.expr.atoms.Name;
 import com.github.python3parser.model.expr.atoms.Num;
+import com.github.python3parser.model.expr.atoms.True;
 import com.github.python3parser.model.expr.atoms.trailers.arguments.Arguments;
 import com.github.python3parser.model.mods.Module;
 import com.github.python3parser.model.stmts.Body;
 import com.github.python3parser.model.stmts.compoundStmts.ClassDef;
+import com.github.python3parser.model.stmts.compoundStmts.If;
 import com.github.python3parser.model.stmts.compoundStmts.While;
 import com.github.python3parser.model.stmts.compoundStmts.forStmts.For;
 import com.github.python3parser.model.stmts.compoundStmts.functionStmts.FunctionDef;
@@ -28,7 +30,8 @@ public class AddClassManipulation {
 		//createForStmt();
 		//createTryStmt();
 		//createWithStmt();
-		createWhileStmt();
+		//createWhileStmt();
+		createIfStmt();
 	}
 
 	private static void createClass() {
@@ -108,6 +111,26 @@ public class AddClassManipulation {
 		bodyOrElse.addStatement(new Name("orElseBody1"));
 		bodyOrElse.addStatement(new Name("orElseBody2"));
 		whileStmt.setOrElse(Optional.ofNullable(bodyOrElse));
+		module.printInConsole();
+	}
+
+	private static void createIfStmt() {
+		Module module = new Module();
+		ClassDef clazz = module.addClass(new ClassDef("Clazzzzz"));
+		
+		If ifStmt = (If) clazz.addStatement(new If(new True()));
+		ifStmt.addStatementToBody(new Name("body1.1"));
+		ifStmt.addStatementToBody(new Name("body1.2"));
+		
+		Expression elifTest = ifStmt.addElifTestWithBody(new Name("testElif"), new Name("elifBody1.1"));
+		ifStmt.addStatementToElif(elifTest, new Name("elifBody1.2"));
+		
+		Expression elifTest2 = ifStmt.addElifTestWithBody(new Name("testElif2"), new Name("elifBody2.1"));
+		ifStmt.addStatementToElif(elifTest2, new Name("elifBody2.2"));
+		
+		ifStmt.setElseBody(Optional.ofNullable(new Name("elseBody")));
+		
+		clazz.addStatement(new Name("variable"));
 		module.printInConsole();
 	}
 }

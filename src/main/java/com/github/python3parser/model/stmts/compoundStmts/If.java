@@ -1,12 +1,15 @@
 package com.github.python3parser.model.stmts.compoundStmts;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 
 import com.github.python3parser.model.expr.Expression;
 import com.github.python3parser.model.stmts.Body;
 import com.github.python3parser.model.stmts.Statement;
+import com.github.python3parser.model.stmts.compoundStmts.tryExceptStmts.ExceptHandler;
 import com.github.python3parser.visitors.basic.Python3ASTVisitor;
 
 //this class varies from the original AST class
@@ -25,18 +28,37 @@ import com.github.python3parser.visitors.basic.Python3ASTVisitor;
 public class If extends Statement{
 	
 	Expression ifTest;
-	Statement ifSuite;
+	Statement ifBody;
 	List<Expression> elifTests;
-	List<Statement> elifSuites;
-	Optional<Statement> elseSuite;
+	List<Statement> elifBodies;
+	Optional<Statement> elseBody;
 	
-	public If(Expression ifTest, Statement ifSuite, List<Expression> elifTest, List<Statement> elifSuite,
-			Statement elseSuite) {
+	public If(Expression ifTest) {
+		this(ifTest, null, null, null, null);
+	}
+	
+	public If(Expression ifTest, Statement ifBody) {
+		this(ifTest, ifBody, null, null, null);
+	}
+	
+	public If(Expression ifTest, Statement ifBody, 
+			List<Expression> elifTests, List<Statement> elifBodies) {
+		this(ifTest, ifBody, elifTests, elifBodies, null);
+	}
+	
+	public If(Expression ifTest, Statement ifBody, 
+			Statement elseBody) {
+		this(ifTest, ifBody, null, null, elseBody);
+	}
+	
+	public If(Expression ifTest, Statement ifBody, 
+			List<Expression> elifTests, List<Statement> elifBodies,
+			Statement elseBody) {
 		this.ifTest = ifTest;
-		this.ifSuite = ifSuite;
-		this.elifTests = elifTest;
-		this.elifSuites = elifSuite;
-		this.elseSuite = Optional.ofNullable(elseSuite);
+		this.ifBody = ifBody;
+		this.elifTests = (elifTests != null) ? elifTests : new ArrayList<>();
+		this.elifBodies = (elifBodies != null) ? elifBodies : new ArrayList<>();
+		this.elseBody = Optional.ofNullable(elseBody);
 		setParentToBodies();
 	}
 
@@ -48,13 +70,13 @@ public class If extends Statement{
 		this.ifTest = ifTest;
 	}
 
-	public Statement getIfSuite() {
-		return ifSuite;
+	public Statement getIfBody() {
+		return ifBody;
 	}
 
-	public void setIfSuite(Statement ifSuite) {
-		this.ifSuite = ifSuite;
-		setParentToIfSuite();
+	public void setIfBody(Statement ifBody) {
+		this.ifBody = ifBody;
+		setParentToIfBody();
 	}
 
 	public List<Expression> getElifTests() {
@@ -65,43 +87,90 @@ public class If extends Statement{
 		this.elifTests = elifTests;
 	}
 
-	public List<Statement> getElifSuites() {
-		return elifSuites;
+	public List<Statement> getElifBodies() {
+		return elifBodies;
 	}
 
-	public void setElifSuites(List<Statement> elifSuites) {
-		this.elifSuites = elifSuites;
-		setParentToElifSuites();
+	public void setElifBodies(List<Statement> elifBodies) {
+		this.elifBodies = elifBodies;
+		setParentToElifBodies();
 	}
 
-	public Optional<Statement> getElseSuite() {
-		return elseSuite;
+	public Optional<Statement> getElseBody() {
+		return elseBody;
 	}
 
-	public void setElseSuite(Optional<Statement> elseSuite) {
-		this.elseSuite = elseSuite;
-		setParentToElseSuites();
+	public void setElseBody(Optional<Statement> elseBody) {
+		this.elseBody = elseBody;
+		setParentToElseBody();
+	}
+	
+	public Statement addStatementToBody(Statement statement) {
+		if (this.ifBody == null) {
+			this.ifBody= statement instanceof Expression ? (Expression) statement : statement;
+			return statement;
+		}
+		this.ifBody = transformStmtToBody();
+		Body body = (Body) this.ifBody;
+		body.addStatement(statement);
+		return statement;
+	}
+	
+	public Expression addElifTestWithBody(Expression elifTest, Statement elifBody) {
+		this.elifTests.add(elifTest);
+		this.elifBodies.add(elifBody);
+		setParentToElifBodies();
+		return elifTest;
+	}
+	
+	public Statement addStatementToElif(Expression elifTest, Statement elifStatement) {
+		if (!this.elifTests.contains(elifTest)) throw new NoSuchElementException("ElifTest does not exist in attribute 'elifTests'.");
+		int indexOfElifTest = this.elifTests.indexOf(elifTest);
+		if (this.elifBodies.get(indexOfElifTest) instanceof Body) {
+			Body body = (Body) this.elifBodies.get(indexOfElifTest);
+			body.addStatement(elifStatement);
+		} else {
+			List<Statement> statements = new ArrayList<>();
+			statements.add(this.elifBodies.get(indexOfElifTest));
+			statements.add(elifStatement);
+			Body body = new Body(statements);
+			body.setParentStmt(this);
+			this.elifBodies.remove(indexOfElifTest);
+			this.elifBodies.add(indexOfElifTest, body);
+		}
+		
+		return elifStatement;
+	}
+	
+	private Body transformStmtToBody() {
+		if (this.ifBody instanceof Body) return (Body) this.ifBody;
+		Statement statement = this.ifBody;
+		List<Statement> statements = new ArrayList<>();
+		statements.add(statement);
+		Body body = new Body(statements);
+		body.setParentStmt(this);
+		return body;
 	}
 	
 	private void setParentToBodies() {
-		setParentToIfSuite();
-		setParentToElifSuites();
-		setParentToElseSuites();
+		setParentToIfBody();
+		setParentToElifBodies();
+		setParentToElseBody();
 	}
 
-	private void setParentToIfSuite() {
-		if (ifSuite instanceof Body) ((Body) ifSuite).setParentStmt(this);
+	private void setParentToIfBody() {
+		if (ifBody instanceof Body) ((Body) ifBody).setParentStmt(this);
 	}
 
-	private void setParentToElifSuites() {
-		for (Statement statement : elifSuites) {
+	private void setParentToElifBodies() {
+		for (Statement statement : elifBodies) {
 			if (statement instanceof Body) ((Body) statement).setParentStmt(this);
 		}
 	}
 
-	private void setParentToElseSuites() {
-		if (elseSuite.isPresent()) {
-			Statement elseSuiteStmt = elseSuite.get();
+	private void setParentToElseBody() {
+		if (elseBody.isPresent()) {
+			Statement elseSuiteStmt = elseBody.get();
 			if (elseSuiteStmt instanceof Body) ((Body) elseSuiteStmt).setParentStmt(this);
 		}
 	}
@@ -116,14 +185,19 @@ public class If extends Statement{
 		if (o == null || getClass() != o.getClass()) return false;
 		If anIf = (If) o;
 		return Objects.equals(ifTest, anIf.ifTest) &&
-				Objects.equals(ifSuite, anIf.ifSuite) &&
+				Objects.equals(ifBody, anIf.ifBody) &&
 				Objects.equals(elifTests, anIf.elifTests) &&
-				Objects.equals(elifSuites, anIf.elifSuites) &&
-				Objects.equals(elseSuite, anIf.elseSuite);
+				Objects.equals(elifBodies, anIf.elifBodies) &&
+				Objects.equals(elseBody, anIf.elseBody);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(ifTest, ifSuite, elifTests, elifSuites, elseSuite);
+		return Objects.hash(ifTest, ifBody, elifTests, elifBodies, elseBody);
+	}
+	
+	@Override
+	public String toString() {
+		return "If";
 	}
 }

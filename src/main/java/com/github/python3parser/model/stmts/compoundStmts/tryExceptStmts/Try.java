@@ -124,6 +124,7 @@ public class Try extends Statement{
 	public ExceptHandler addHandlerWithBody(ExceptHandler handler, Statement handlerBody) {
 		this.handlers.add(handler);
 		this.handlersBody.add(handlerBody);
+		setParentToHandlersBody();
 		return handler;
 	}
 	
@@ -207,5 +208,10 @@ public class Try extends Statement{
 	@Override
 	public int hashCode() {
 		return Objects.hash(body, handlers, handlersBody, orElse, finalBody);
+	}
+	
+	@Override
+	public String toString() {
+		return "Try";
 	}
 }

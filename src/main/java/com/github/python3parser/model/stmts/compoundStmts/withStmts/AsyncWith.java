@@ -97,4 +97,9 @@ public class AsyncWith extends Statement{
 	public int hashCode() {
 		return Objects.hash(items, body);
 	}
+	
+	@Override
+	public String toString() {
+		return "AsyncWith";
+	}
 }

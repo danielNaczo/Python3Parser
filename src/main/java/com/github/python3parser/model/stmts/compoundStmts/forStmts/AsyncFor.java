@@ -137,4 +137,9 @@ public class AsyncFor extends Statement{
 	public int hashCode() {
 		return Objects.hash(target, iter, body, orElse);
 	}
+	
+	@Override
+	public String toString() {
+		return "AsyncFor";
+	}
 }

@@ -752,15 +752,15 @@ public class ModifierVisitor<P> implements Python3ASTVisitor<AST, P> {
 	@Override
 	public AST visitIf(If ifElement, P param) {
 		Expression ifTest = (Expression) ifElement.getIfTest().accept(this, param);
-		Statement ifSuite = (Statement) ifElement.getIfSuite().accept(this, param);
+		Statement ifBody = (Statement) ifElement.getIfBody().accept(this, param);
 		List<Expression> elifTests = modifyList(ifElement.getElifTests(), param);
-		List<Statement> elifSuites = modifyList(ifElement.getElifSuites(), param);
-		Optional<Statement> elseSuite = modifyOptional(ifElement.getElseSuite(), param);
+		List<Statement> elifBodies = modifyList(ifElement.getElifBodies(), param);
+		Optional<Statement> elseBody = modifyOptional(ifElement.getElseBody(), param);
 		ifElement.setIfTest(ifTest);
-		ifElement.setIfSuite(ifSuite);
+		ifElement.setIfBody(ifBody);
 		ifElement.setElifTests(elifTests);
-		ifElement.setElifSuites(elifSuites);
-		ifElement.setElseSuite(elseSuite);
+		ifElement.setElifBodies(elifBodies);
+		ifElement.setElseBody(elseBody);
 		return ifElement;
 	}
 

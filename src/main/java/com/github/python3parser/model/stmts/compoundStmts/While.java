@@ -133,4 +133,9 @@ public class While extends Statement{
 	public int hashCode() {
 		return Objects.hash(test, body, orElse);
 	}
+	
+	@Override
+	public String toString() {
+		return "While";
+	}
 }

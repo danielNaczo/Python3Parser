@@ -465,24 +465,33 @@ public class StatementPrettyPrintVisitor extends GenericUnsupportedASTVisitor<St
 		string = string.concat(param.getIndentationString());
 
 		Expression ifTest = ifElement.getIfTest();
-		Statement ifSuite = ifElement.getIfSuite();
+		Statement ifBody = ifElement.getIfBody();
 		List<Expression> elifTests = ifElement.getElifTests();
-		List<Statement> elifSuites = ifElement.getElifSuites();
-		Optional<Statement> elseSuite = ifElement.getElseSuite();
+		List<Statement> elifBodies = ifElement.getElifBodies();
+		Optional<Statement> elseBody = ifElement.getElseBody();
 
 		string = string.concat("if ");
+		if (ifTest == null) {
+			throw new Python3ParserException("Body of 'If' is empty.");
+		}
 		string = string.concat(ifTest.accept(new ExpressionPrettyPrintVisitor(),
 				new IndentationPrettyPrint(param.getIndentationLevel())));
 		string = string.concat(":");
 
-		if (ifSuite instanceof Body) {
+		if (ifBody instanceof Body) {
 			string = string.concat("\n"); // ifSuite contains multiple statements
 		} else {
 			string = string.concat(" "); // ifSuite contains a simple statement
 		}
 		
-		string = string.concat(ifSuite.accept(new StatementPrettyPrintVisitor(),
-				new IndentationPrettyPrint(param.getIndentationLevel() + 1)));
+		if (ifBody instanceof Expression) {
+			string = string.concat(ifBody.accept(new ExpressionPrettyPrintVisitor(),
+					new IndentationPrettyPrint(param.getIndentationLevel() + 1)));
+			string = string.concat("\n");
+		} else {
+			string = string.concat(ifBody.accept(new StatementPrettyPrintVisitor(),
+					new IndentationPrettyPrint(param.getIndentationLevel() + 1)));
+		}
 
 		for (int i = 0; i < elifTests.size(); i++) {
 			string = string.concat(param.getIndentationString());
@@ -491,16 +500,26 @@ public class StatementPrettyPrintVisitor extends GenericUnsupportedASTVisitor<St
 					new IndentationPrettyPrint(param.getIndentationLevel())));
 			string = string.concat(":");
 			string = string.concat("\n");
-			string = string.concat(elifSuites.get(i).accept(new StatementPrettyPrintVisitor(),
-					new IndentationPrettyPrint(param.getIndentationLevel() + 1)));
+			if (elifBodies.get(i) == null) {
+				throw new Python3ParserException("Body of handler is empty.");
+			}
+			string = bodyToString(param, string, elifBodies.get(i));
 		}
 
-		if (elseSuite.isPresent()) {
+		if (elseBody.isPresent()) {
 			string = string.concat(param.getIndentationString());
 			string = string.concat("else: ");
-			string = string.concat("\n");
-			string = string.concat(elseSuite.get().accept(new StatementPrettyPrintVisitor(),
-					new IndentationPrettyPrint(param.getIndentationLevel() + 1)));
+			if (elseBody.get() instanceof Body) {
+				string = string.concat("\n"); // elseBody contains multiple statements
+			}
+			if (elseBody.get() instanceof Expression) {
+				string = string.concat(elseBody.get().accept(new ExpressionPrettyPrintVisitor(),
+						new IndentationPrettyPrint(param.getIndentationLevel() + 1)));
+				string = string.concat("\n");
+			} else {
+				string = string.concat(elseBody.get().accept(new StatementPrettyPrintVisitor(),
+						new IndentationPrettyPrint(param.getIndentationLevel() + 1)));
+			}
 		}
 
 		return string;
