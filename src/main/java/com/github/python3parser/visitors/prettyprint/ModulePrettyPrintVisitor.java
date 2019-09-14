@@ -9,6 +9,7 @@ import com.github.python3parser.model.mods.ExpressionMod;
 import com.github.python3parser.model.mods.Interactive;
 import com.github.python3parser.model.mods.Module;
 import com.github.python3parser.model.stmts.Statement;
+import com.github.python3parser.visitors.exceptions.Python3ParserException;
 
 public class ModulePrettyPrintVisitor extends GenericUnsupportedASTVisitor<String, IndentationPrettyPrint>{
 
@@ -26,7 +27,11 @@ public class ModulePrettyPrintVisitor extends GenericUnsupportedASTVisitor<Strin
 		}
 		
 		List<Statement> statements = module.getStatements();
-		for (int i = 0; i < statements.size(); i++) {
+		if (statements == null || statements.isEmpty()) {
+			throw new Python3ParserException("'Module' has no statements.");
+		}
+		
+			for (int i = 0; i < statements.size(); i++) {
 			Statement statement = statements.get(i);
 			if (statement instanceof Expression) {
 				string = string.concat(param.getIndentationString());

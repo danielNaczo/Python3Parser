@@ -10,11 +10,27 @@ import com.github.python3parser.visitors.basic.Python3ASTVisitor;
 public class Alias implements AST {
 
 	Identifier name;
-	Optional<Identifier> asname;
+	Optional<Identifier> asName;
 	
-	public Alias(Identifier name, Identifier asname) {
+	public Alias(String name) {
+		this(new Identifier(name), null);
+	}
+	
+	public Alias(Identifier name) {
+		this(name, null);
+	}
+	
+	public Alias(String name, Identifier asName) {
+		this(new Identifier(name), asName);
+	}
+	
+	public Alias(String name, String asName) {
+		this(new Identifier(name), new Identifier(asName));
+	}
+	
+	public Alias(Identifier name, Identifier asName) {
 		this.name = name;
-		this.asname = Optional.ofNullable(asname);
+		this.asName = Optional.ofNullable(asName);
 	}
 
 	public Identifier getName() {
@@ -26,11 +42,11 @@ public class Alias implements AST {
 	}
 
 	public Optional<Identifier> getAsName() {
-		return asname;
+		return asName;
 	}
 
 	public void setAsName(Optional<Identifier> asname) {
-		this.asname = asname;
+		this.asName = asname;
 	}
 	
 	public <R, P> R accept(Python3ASTVisitor<R, P> visitor, P param) {
@@ -43,11 +59,11 @@ public class Alias implements AST {
 		if (o == null || getClass() != o.getClass()) return false;
 		Alias alias = (Alias) o;
 		return Objects.equals(name, alias.name) &&
-				Objects.equals(asname, alias.asname);
+				Objects.equals(asName, alias.asName);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, asname);
+		return Objects.hash(name, asName);
 	}
 }

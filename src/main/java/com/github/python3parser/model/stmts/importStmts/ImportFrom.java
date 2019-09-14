@@ -1,5 +1,6 @@
 package com.github.python3parser.model.stmts.importStmts;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -13,6 +14,22 @@ public class ImportFrom extends Statement{
 	Optional<Identifier> module;
 	List<Alias> names;
 	Integer level;
+	
+	public ImportFrom(String module) {
+		this(new Identifier(module), new ArrayList<>(), 0);
+	}
+	
+	public ImportFrom(String module, Integer level) {
+		this(new Identifier(module), new ArrayList<>(), level);
+	}
+	
+	public ImportFrom(String module, List<Alias> names) {
+		this(new Identifier(module), names, 0);
+	}
+	
+	public ImportFrom(String module, List<Alias> names, Integer level) {
+		this(new Identifier(module), names, level);
+	}
 	
 	public ImportFrom(Identifier module, List<Alias> names, Integer level) {
 		this.module = Optional.ofNullable(module);
@@ -44,6 +61,11 @@ public class ImportFrom extends Statement{
 		this.level = level;
 	}
 	
+	public Alias addAlias(Alias alias) {
+		this.names.add(alias);
+		return alias;
+	}
+	
 	public <R, P> R accept(Python3ASTVisitor<R, P> visitor, P param) {
 		return visitor.visitImportFrom(this, param);
 	}
@@ -61,5 +83,10 @@ public class ImportFrom extends Statement{
 	@Override
 	public int hashCode() {
 		return Objects.hash(module, names, level);
+	}
+	
+	@Override
+	public String toString() {
+		return "ImportFrom";
 	}
 }

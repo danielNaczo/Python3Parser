@@ -12,6 +12,7 @@ import com.github.python3parser.model.expr.atoms.trailers.arguments.Arguments;
 import com.github.python3parser.model.expr.operators.unaryops.Yield;
 import com.github.python3parser.model.mods.Module;
 import com.github.python3parser.model.stmts.Body;
+import com.github.python3parser.model.stmts.Statement;
 import com.github.python3parser.model.stmts.compoundStmts.ClassDef;
 import com.github.python3parser.model.stmts.compoundStmts.If;
 import com.github.python3parser.model.stmts.compoundStmts.While;
@@ -25,6 +26,9 @@ import com.github.python3parser.model.stmts.compoundStmts.withStmts.With;
 import com.github.python3parser.model.stmts.compoundStmts.withStmts.WithItem;
 import com.github.python3parser.model.stmts.flowStmts.Break;
 import com.github.python3parser.model.stmts.flowStmts.Return;
+import com.github.python3parser.model.stmts.importStmts.Alias;
+import com.github.python3parser.model.stmts.importStmts.Import;
+import com.github.python3parser.model.stmts.importStmts.ImportFrom;
 
 public class AddClassManipulation {
 	public static void main(String[] args) {
@@ -33,7 +37,8 @@ public class AddClassManipulation {
 		//createTryStmt();
 		//createWithStmt();
 		//createWhileStmt();
-		createIfStmt();
+		//createIfStmt();
+		createImportStmt();
 	}
 
 	private static void createClass() {
@@ -135,6 +140,19 @@ public class AddClassManipulation {
 		
 		clazz.addStatement(new Name("variable"));
 		clazz.addStatement(new Yield(null));
+		
+		module.printInConsole();
+	}
+
+	private static void createImportStmt() {
+		Module module = new Module();
+		
+		Import importStmt = (Import) module.addStatement(new Import());
+		importStmt.addAlias(new Alias("mathplotbib"));
+		
+		ImportFrom importStmt2 = (ImportFrom) module.addStatement(new ImportFrom("bmp"));
+		importStmt2.setLevel(2);
+		importStmt2.addAlias(new Alias("someBib", "myBib"));
 		
 		module.printInConsole();
 	}

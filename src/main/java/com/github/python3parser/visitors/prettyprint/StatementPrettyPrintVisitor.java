@@ -531,6 +531,9 @@ public class StatementPrettyPrintVisitor extends GenericUnsupportedASTVisitor<St
 		string = string.concat("import ");
 
 		List<Alias> names = importElement.getNames();
+		if (names == null || names.isEmpty()) {
+			throw new Python3ParserException("'Import' has no aliases.");
+		}
 
 		for (int i = 0; i < names.size(); i++) {
 			string = string.concat(names.get(i).accept(new AliasPrettyPrintVisitor(),
@@ -568,6 +571,10 @@ public class StatementPrettyPrintVisitor extends GenericUnsupportedASTVisitor<St
 		}
 
 		string = string.concat("import ");
+		
+		if (names == null || names.isEmpty()) {
+			throw new Python3ParserException("'ImportFrom' has no aliases.");
+		}
 
 		for (int i = 0; i < names.size(); i++) {
 			string = string.concat(names.get(i).accept(new AliasPrettyPrintVisitor(),
