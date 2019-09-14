@@ -9,6 +9,7 @@ import com.github.python3parser.model.expr.atoms.Name;
 import com.github.python3parser.model.expr.atoms.Num;
 import com.github.python3parser.model.expr.atoms.True;
 import com.github.python3parser.model.expr.atoms.trailers.arguments.Arguments;
+import com.github.python3parser.model.expr.operators.unaryops.Yield;
 import com.github.python3parser.model.mods.Module;
 import com.github.python3parser.model.stmts.Body;
 import com.github.python3parser.model.stmts.compoundStmts.ClassDef;
@@ -22,7 +23,9 @@ import com.github.python3parser.model.stmts.compoundStmts.tryExceptStmts.ExceptH
 import com.github.python3parser.model.stmts.compoundStmts.tryExceptStmts.Try;
 import com.github.python3parser.model.stmts.compoundStmts.withStmts.With;
 import com.github.python3parser.model.stmts.compoundStmts.withStmts.WithItem;
+import com.github.python3parser.model.stmts.flowStmts.Break;
 import com.github.python3parser.model.stmts.flowStmts.Return;
+import com.github.python3parser.model.stmts.flowStmts.YieldStmt;
 
 public class AddClassManipulation {
 	public static void main(String[] args) {
@@ -131,6 +134,7 @@ public class AddClassManipulation {
 		ifStmt.setElseBody(Optional.ofNullable(new Name("elseBody")));
 		
 		clazz.addStatement(new Name("variable"));
+		clazz.addStatement(new YieldStmt());
 		module.printInConsole();
 	}
 }

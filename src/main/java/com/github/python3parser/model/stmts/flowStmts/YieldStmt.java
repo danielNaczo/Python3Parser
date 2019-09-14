@@ -1,6 +1,7 @@
 package com.github.python3parser.model.stmts.flowStmts;
 
 import com.github.python3parser.model.expr.Expression;
+import com.github.python3parser.model.expr.operators.unaryops.Yield;
 import com.github.python3parser.model.stmts.Statement;
 import com.github.python3parser.visitors.basic.Python3ASTVisitor;
 
@@ -11,6 +12,10 @@ import java.util.Objects;
 // yield arg from test
 public class YieldStmt extends Statement{
 	Expression yield;
+	
+	public YieldStmt() {
+		this(new Yield(null));
+	}
 	
 	public YieldStmt(Expression yield) {
 		this.yield = yield;

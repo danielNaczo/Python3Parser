@@ -13,6 +13,10 @@ import com.github.python3parser.visitors.basic.Python3ASTVisitor;
 public class Return extends Statement{
 	Optional<Expression> value;
 	
+	public Return() {
+		this(null);
+	}
+	
 	public Return(Expression value) {
 		this.value = Optional.ofNullable(value);
 	}

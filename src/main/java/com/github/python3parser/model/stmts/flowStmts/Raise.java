@@ -15,6 +15,14 @@ public class Raise extends Statement{
 	Optional<Expression> exc;
 	Optional<Expression> cause;
 	
+	public Raise() {
+		this(null, null);
+	}
+	
+	public Raise(Expression exc) {
+		this(exc, null);
+	}
+	
 	public Raise(Expression exc, Expression cause) {
 		this.exc = Optional.ofNullable(exc);
 		this.cause = Optional.ofNullable(cause);
