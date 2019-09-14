@@ -1,10 +1,12 @@
 package com.github.python3parser.model.stmts.smallStmts.assignStmts;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 import com.github.python3parser.model.expr.Expression;
+import com.github.python3parser.model.expr.atoms.Name;
 import com.github.python3parser.model.stmts.Statement;
 import com.github.python3parser.visitors.basic.Python3ASTVisitor;
 
@@ -12,11 +14,18 @@ import com.github.python3parser.visitors.basic.Python3ASTVisitor;
 
 // a = b = 1
 
-//if "value" is null, then the only element in the "targets"-list is a DocString of a function or al class
 public class Assign extends Statement{
 	
 	List<Expression> targets;
 	Optional<Expression> value;
+	
+	public Assign() {
+		this(new ArrayList<>(), null);
+	}
+	
+	public Assign(Expression value) {
+		this(new ArrayList<>(), value);
+	}
 	
 	public Assign(List<Expression> targets, Expression value) {
 		this.targets = targets;
@@ -39,6 +48,17 @@ public class Assign extends Statement{
 		this.value = value;
 	}
 	
+	public Expression addTarget(Expression expression) {
+		this.targets.add(expression);
+		return expression;
+	}
+	
+	public Expression addTargetAsString(String expressionAsString) {
+		Name name = new Name(expressionAsString);
+		this.targets.add(name);
+		return name;
+	}
+	
 	public <R, P> R accept(Python3ASTVisitor<R, P> visitor, P param) {
 		return visitor.visitAssign(this, param);
 	}
@@ -55,5 +75,10 @@ public class Assign extends Statement{
 	@Override
 	public int hashCode() {
 		return Objects.hash(targets, value);
+	}
+	
+	@Override
+	public String toString() {
+		return "Assign";
 	}
 }

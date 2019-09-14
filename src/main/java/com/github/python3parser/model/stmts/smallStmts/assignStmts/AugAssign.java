@@ -1,6 +1,7 @@
 package com.github.python3parser.model.stmts.smallStmts.assignStmts;
 
 import com.github.python3parser.model.expr.Expression;
+import com.github.python3parser.model.expr.atoms.Name;
 import com.github.python3parser.model.expr.operators.Operator;
 import com.github.python3parser.model.stmts.Statement;
 import com.github.python3parser.visitors.basic.Python3ASTVisitor;
@@ -15,6 +16,10 @@ public class AugAssign extends Statement{
 	Expression target;
 	Operator op;
 	Expression value;
+	
+	public AugAssign(String target, Operator op, String value) {
+		this(new Name(target), op, new Name(value));
+	}
 
 	public AugAssign(Expression target, Operator op, Expression value) {
 		this.target = target;
@@ -63,5 +68,10 @@ public class AugAssign extends Statement{
 	@Override
 	public int hashCode() {
 		return Objects.hash(target, op, value);
+	}
+	
+	@Override
+	public String toString() {
+		return "AugAssign";
 	}
 }

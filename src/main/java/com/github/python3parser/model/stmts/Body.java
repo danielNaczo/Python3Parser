@@ -63,4 +63,9 @@ public class Body extends Statement {
 	public int hashCode() {
 		return Objects.hash(statements);
 	}
+	
+	@Override
+	public String toString() {
+		return "Body";
+	}
 }

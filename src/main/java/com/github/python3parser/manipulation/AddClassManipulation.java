@@ -10,6 +10,7 @@ import com.github.python3parser.model.expr.atoms.Name;
 import com.github.python3parser.model.expr.atoms.Num;
 import com.github.python3parser.model.expr.atoms.True;
 import com.github.python3parser.model.expr.atoms.trailers.arguments.Arguments;
+import com.github.python3parser.model.expr.operators.binaryops.Add;
 import com.github.python3parser.model.expr.operators.unaryops.Yield;
 import com.github.python3parser.model.mods.Module;
 import com.github.python3parser.model.stmts.Body;
@@ -33,6 +34,9 @@ import com.github.python3parser.model.stmts.importStmts.ImportFrom;
 import com.github.python3parser.model.stmts.smallStmts.Global;
 import com.github.python3parser.model.stmts.smallStmts.Nonlocal;
 import com.github.python3parser.model.stmts.smallStmts.Pass;
+import com.github.python3parser.model.stmts.smallStmts.assignStmts.AnnAssign;
+import com.github.python3parser.model.stmts.smallStmts.assignStmts.Assign;
+import com.github.python3parser.model.stmts.smallStmts.assignStmts.AugAssign;
 
 public class AddClassManipulation {
 	public static void main(String[] args) {
@@ -42,7 +46,8 @@ public class AddClassManipulation {
 		//createWithStmt();
 		//createWhileStmt();
 		//createIfStmt();
-		createImportStmt();
+		//createImportStmt();
+		createAssignStmts();
 	}
 
 	private static void createClass() {
@@ -167,6 +172,22 @@ public class AddClassManipulation {
 		nonlocal.addIdentiferAsString("booNon");
 		
 		module.addStatement(new Pass());
+		
+		module.printInConsole();
+	}
+
+	private static void createAssignStmts() {
+		Module module = new Module();
+		
+		Assign assign = (Assign) module.addStatement(new Assign());
+		assign.addTargetAsString("target1");
+		assign.addTargetAsString("target2");
+		assign.setValue(Optional.ofNullable(new Name("value")));
+		
+		AnnAssign annAssign = (AnnAssign) module.addStatement(new AnnAssign("target", "annotation"));
+		annAssign.setValue(Optional.ofNullable(new Name("value")));
+		
+		module.addStatement(new AugAssign("target", new Add(), "value"));
 		
 		module.printInConsole();
 	}

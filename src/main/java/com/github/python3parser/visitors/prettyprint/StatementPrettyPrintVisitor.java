@@ -57,7 +57,7 @@ public class StatementPrettyPrintVisitor extends GenericUnsupportedASTVisitor<St
 				new IndentationPrettyPrint(param.getIndentationLevel())));
 
 		if (value.isPresent()) {
-			string.concat(" = ");
+			string = string.concat(" = ");
 			string = string.concat(value.get().accept(new ExpressionPrettyPrintVisitor(),
 					new IndentationPrettyPrint(param.getIndentationLevel())));
 		}
@@ -96,7 +96,11 @@ public class StatementPrettyPrintVisitor extends GenericUnsupportedASTVisitor<St
 
 		List<Expression> targets = assign.getTargets();
 		Optional<Expression> value = assign.getValue();
-
+		
+		if (targets == null || targets.isEmpty()) {
+			throw new Python3ParserException("'Assign' has no targets.");
+		}
+		
 		for (int i = 0; i < targets.size(); i++) {
 			string = string.concat(targets.get(i).accept(new ExpressionPrettyPrintVisitor(),
 					new IndentationPrettyPrint(param.getIndentationLevel())));

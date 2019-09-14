@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import com.github.python3parser.model.expr.Expression;
+import com.github.python3parser.model.expr.atoms.Name;
 import com.github.python3parser.model.stmts.Statement;
 import com.github.python3parser.visitors.basic.Python3ASTVisitor;
 
@@ -15,6 +16,14 @@ public class AnnAssign extends Statement{
 	Expression target;
 	Expression annotation;
 	Optional<Expression> value;
+	
+	public AnnAssign(String target, String annotation) {
+		this(new Name(target), new Name(annotation), null);
+	}
+	
+	public AnnAssign(Expression target, Expression annotation) {
+		this(target, annotation, null);
+	}
 	
 	public AnnAssign(Expression target, Expression annotation, Expression value) {
 		this.target = target;
@@ -63,5 +72,10 @@ public class AnnAssign extends Statement{
 	@Override
 	public int hashCode() {
 		return Objects.hash(target, annotation, value);
+	}
+	
+	@Override
+	public String toString() {
+		return "AnnAssign";
 	}
 }
