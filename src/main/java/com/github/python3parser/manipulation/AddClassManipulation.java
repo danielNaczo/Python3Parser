@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.github.python3parser.model.Identifier;
 import com.github.python3parser.model.expr.Expression;
 import com.github.python3parser.model.expr.atoms.Name;
 import com.github.python3parser.model.expr.atoms.Num;
@@ -29,6 +30,9 @@ import com.github.python3parser.model.stmts.flowStmts.Return;
 import com.github.python3parser.model.stmts.importStmts.Alias;
 import com.github.python3parser.model.stmts.importStmts.Import;
 import com.github.python3parser.model.stmts.importStmts.ImportFrom;
+import com.github.python3parser.model.stmts.smallStmts.Global;
+import com.github.python3parser.model.stmts.smallStmts.Nonlocal;
+import com.github.python3parser.model.stmts.smallStmts.Pass;
 
 public class AddClassManipulation {
 	public static void main(String[] args) {
@@ -153,6 +157,16 @@ public class AddClassManipulation {
 		ImportFrom importStmt2 = (ImportFrom) module.addStatement(new ImportFrom("bmp"));
 		importStmt2.setLevel(2);
 		importStmt2.addAlias(new Alias("someBib", "myBib"));
+		
+		Global global = (Global) module.addStatement(new Global());
+		global.addIdentiferAsString("foo");
+		global.addIdentifier(new Identifier("boo"));
+		
+		Nonlocal nonlocal = (Nonlocal) module.addStatement(new Nonlocal());
+		nonlocal.addIdentifier(new Identifier("fooNon"));
+		nonlocal.addIdentiferAsString("booNon");
+		
+		module.addStatement(new Pass());
 		
 		module.printInConsole();
 	}

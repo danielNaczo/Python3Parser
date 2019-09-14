@@ -1,5 +1,6 @@
 package com.github.python3parser.model.stmts.smallStmts;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,6 +15,10 @@ public class Nonlocal extends Statement{
 	
 	List<Identifier> names;
 	
+	public Nonlocal() {
+		this(new ArrayList<>());
+	}
+	
 	public Nonlocal(List<Identifier> names) {
 		this.names = names;
 	}
@@ -24,6 +29,14 @@ public class Nonlocal extends Statement{
 
 	public void setNames(List<Identifier> names) {
 		this.names = names;
+	}
+	
+	public void addIdentifier(Identifier name) {
+		this.names.add(name);
+	}
+	
+	public void addIdentiferAsString(String name) {
+		this.names.add(new Identifier(name));
 	}
 	
 	public <R, P> R accept(Python3ASTVisitor<R, P> visitor, P param) {
@@ -41,5 +54,10 @@ public class Nonlocal extends Statement{
 	@Override
 	public int hashCode() {
 		return Objects.hash(names);
+	}
+	
+	@Override
+	public String toString() {
+		return "Nonlocal";
 	}
 }

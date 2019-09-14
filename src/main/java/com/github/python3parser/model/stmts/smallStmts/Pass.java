@@ -21,4 +21,9 @@ public class Pass extends Statement{
 	public <R, P> R accept(Python3ASTVisitor<R, P> visitor, P param) {
 		return visitor.visitPass(this, param);
 	}
+	
+	@Override
+	public String toString() {
+		return "Pass";
+	}
 }

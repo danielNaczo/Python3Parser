@@ -38,4 +38,9 @@ public class Delete extends Statement{
 	public int hashCode() {
 		return Objects.hash(expression);
 	}
+	
+	@Override
+	public String toString() {
+		return "Delete";
+	}
 }

@@ -14,7 +14,11 @@ public class Assert extends Statement{
 	Expression test;
 	Optional<Expression> msg;
 	
-	public Assert( Expression test, Expression msg) {
+	public Assert(Expression test) {
+		this(test, null);
+	}
+	
+	public Assert(Expression test, Expression msg) {
 		this.test = test;
 		this.msg = Optional.ofNullable(msg);
 	}
@@ -51,5 +55,10 @@ public class Assert extends Statement{
 	@Override
 	public int hashCode() {
 		return Objects.hash(test, msg);
+	}
+	
+	@Override
+	public String toString() {
+		return "Assert";
 	}
 }

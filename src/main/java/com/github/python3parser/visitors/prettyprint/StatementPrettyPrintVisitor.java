@@ -445,6 +445,9 @@ public class StatementPrettyPrintVisitor extends GenericUnsupportedASTVisitor<St
 		string = string.concat("global ");
 
 		List<Identifier> names = global.getNames();
+		if (names == null || names.isEmpty()) {
+			throw new Python3ParserException("'Global' has no names.");
+		}
 
 		for (int i = 0; i < names.size(); i++) {
 			string = string.concat(names.get(i).getName());
@@ -597,6 +600,9 @@ public class StatementPrettyPrintVisitor extends GenericUnsupportedASTVisitor<St
 		string = string.concat("nonlocal ");
 
 		List<Identifier> names = nonlocal.getNames();
+		if (names == null || names.isEmpty()) {
+			throw new Python3ParserException("'Nonlocal' has no names.");
+		}
 
 		for (int i = 0; i < names.size(); i++) {
 			string = string.concat(names.get(i).getName());
