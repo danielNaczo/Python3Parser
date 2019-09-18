@@ -40,6 +40,7 @@ import com.github.python3parser.model.stmts.smallStmts.assignStmts.AugAssign;
 
 public class AddClassManipulation {
 	public static void main(String[] args) {
+		createFunction();
 		//createClass();
 		//createForStmt();
 		//createTryStmt();
@@ -47,7 +48,16 @@ public class AddClassManipulation {
 		//createWhileStmt();
 		//createIfStmt();
 		//createImportStmt();
-		createAssignStmts();
+		//createAssignStmts();
+	}
+
+	private static void createFunction() {
+		Module module = new Module();
+		FunctionDef functionDef = module.addFunction(new FunctionDef("add"));
+		functionDef.addParameter(new Parameter("a"));
+		functionDef.addParameter(new Parameter("b"));
+		functionDef.addStatement(new Return(new Add("a", "b")));
+		module.printInConsole();
 	}
 
 	private static void createClass() {

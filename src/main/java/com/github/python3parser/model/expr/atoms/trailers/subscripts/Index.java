@@ -7,7 +7,12 @@ import com.github.python3parser.visitors.basic.Python3ASTVisitor;
 import java.util.Objects;
 
 public class Index extends SliceAbstract {
+	static int PRECEDENCE = 160;
 
+	public int getPrecedence() {
+		return PRECEDENCE;
+	}
+	
 	Expression value;
 	
 	public Index (Expression value) {
