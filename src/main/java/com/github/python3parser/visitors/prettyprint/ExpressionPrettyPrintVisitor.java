@@ -167,7 +167,7 @@ public class ExpressionPrettyPrintVisitor extends GenericUnsupportedASTVisitor<S
 		Expression left = binOp.getLeft();
 		Expression right = binOp.getRight();
 		
-		boolean inBrackets = checkPrecedence(binOp, binOp.getParent());
+		boolean inBrackets = checkPrecedence(binOp);
 		
 		if (inBrackets){
 			string = string.concat("(");
@@ -184,15 +184,17 @@ public class ExpressionPrettyPrintVisitor extends GenericUnsupportedASTVisitor<S
 		return string;
 	}
 	
-	private boolean checkPrecedence(Expression expression, Expression parent) {
+	private boolean checkPrecedence(Expression expression) {
+		Expression parent = expression.getParent();
 		if (parent == null) return false;
 		boolean basicPrecedenceCheck = expression.getPrecedence() < parent.getPrecedence();
-		boolean levelPrecedenceCheck = levelPrecedenceCheck(expression, parent);
+		boolean levelPrecedenceCheck = levelPrecedenceCheck(expression);
 		
 		return basicPrecedenceCheck || levelPrecedenceCheck;
 	}
 
-	private boolean levelPrecedenceCheck(Expression expression, Expression parent) {
+	private boolean levelPrecedenceCheck(Expression expression) {
+		Expression parent = expression.getParent();
 		if (!(parent instanceof BinOp)) return false;
 		BinOp binOpParent = (BinOp) parent;
 		boolean isSamePrecedence = binOpParent.getPrecedence() == expression.getPrecedence();
@@ -291,8 +293,8 @@ public class ExpressionPrettyPrintVisitor extends GenericUnsupportedASTVisitor<S
 		Expression body = ifExpr.getBody();
 		Expression orElse = ifExpr.getOrElse();
 		
-		boolean precedenceCheck = checkPrecedence(ifExpr, ifExpr.getParent());
-		boolean ifExprPrecedenceCheck = checkIfExprPrecedence(ifExpr, ifExpr.getParent());
+		boolean precedenceCheck = checkPrecedence(ifExpr);
+		boolean ifExprPrecedenceCheck = checkIfExprPrecedence(ifExpr);
 		boolean inBrackets = precedenceCheck || ifExprPrecedenceCheck;
 		
 		if (inBrackets) string = string.concat("(");
@@ -306,7 +308,8 @@ public class ExpressionPrettyPrintVisitor extends GenericUnsupportedASTVisitor<S
 		return string;
 	}
 	
-	private boolean checkIfExprPrecedence(IfExpr ifExpr, Expression parent) {
+	private boolean checkIfExprPrecedence(IfExpr ifExpr) {
+		Expression parent = ifExpr.getParent();
 		if (!(parent instanceof IfExpr)) return false;
 		IfExpr parentIfExpr = (IfExpr) parent;
 		if (parentIfExpr.getBody() == ifExpr) return true;
@@ -336,8 +339,8 @@ public class ExpressionPrettyPrintVisitor extends GenericUnsupportedASTVisitor<S
 		Optional<Parameters> args = lambda.getArgs();
 		Expression body = lambda.getBody();
 		
-		boolean precedenceCheck = checkPrecedence(lambda, lambda.getParent());
-		boolean lambdaPrecedenceCheck = checkLambdaPrecedence(lambda, lambda.getParent());
+		boolean precedenceCheck = checkPrecedence(lambda);
+		boolean lambdaPrecedenceCheck = checkLambdaPrecedence(lambda);
 		boolean inBrackets = precedenceCheck || lambdaPrecedenceCheck;
 		
 		if (inBrackets) string = string.concat("(");
@@ -353,7 +356,8 @@ public class ExpressionPrettyPrintVisitor extends GenericUnsupportedASTVisitor<S
 		return string;
 	}
 	
-	private boolean checkLambdaPrecedence(Lambda lambda, Expression parent) {
+	private boolean checkLambdaPrecedence(Lambda lambda) {
+		Expression parent = lambda.getParent();
 		if (!(parent instanceof Lambda)) return false;
 		Lambda parentLambda = (Lambda) parent;
 		if (parentLambda.getBody() == lambda) return true;
@@ -539,7 +543,7 @@ public class ExpressionPrettyPrintVisitor extends GenericUnsupportedASTVisitor<S
 	public String visitUnaryOp(UnaryOp unaryOp, IndentationPrettyPrint param) {
 		String string = new String();
 		Expression expression = unaryOp.getExpression();
-		boolean inBrackets = checkPrecedence(unaryOp, unaryOp.getParent());
+		boolean inBrackets = checkPrecedence(unaryOp);
 		
 		if (inBrackets){
 			string = string.concat("(");
@@ -558,7 +562,7 @@ public class ExpressionPrettyPrintVisitor extends GenericUnsupportedASTVisitor<S
 		String string = new String();
 		Optional<Expression> value = yield.getExpression();
 		
-		boolean inBrackets = checkPrecedence(yield, yield.getParent());
+		boolean inBrackets = checkPrecedence(yield);
 		if (inBrackets) string = string.concat("(");
 		string = string.concat("yield");
 		if (value.isPresent()) {
@@ -574,7 +578,7 @@ public class ExpressionPrettyPrintVisitor extends GenericUnsupportedASTVisitor<S
 		String string = new String();
 		Expression value = yieldFrom.getExpression();
 		
-		boolean inBrackets = checkPrecedence(yieldFrom, yieldFrom.getParent());
+		boolean inBrackets = checkPrecedence(yieldFrom);
 		
 		if (inBrackets) string = string.concat("(");
 		string = string.concat("yield from ");
