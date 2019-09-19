@@ -197,13 +197,11 @@ public class ExpressionPrettyPrintVisitor extends GenericUnsupportedASTVisitor<S
 		Expression parent = expression.getParent();
 		if (!(parent instanceof BinOp)) return false;
 		BinOp binOpParent = (BinOp) parent;
-		boolean isSamePrecedence = binOpParent.getPrecedence() == expression.getPrecedence();
+		if (!(binOpParent.getPrecedence() == expression.getPrecedence())) return false;
 		if (parent instanceof Pow) { //only operator which is right associative
-			boolean isLeft = binOpParent.getLeft() == expression;
-			return isLeft && isSamePrecedence;
+			return binOpParent.getLeft() == expression;
 		} else {
-			boolean isRight = binOpParent.getRight() == expression;
-			return isRight && isSamePrecedence;
+			return binOpParent.getRight() == expression;
 		}
 	}
 	
