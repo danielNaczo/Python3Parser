@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import com.github.python3parser.model.expr.Expression;
+import com.github.python3parser.model.expr.atoms.Name;
 import com.github.python3parser.model.stmts.Statement;
 import com.github.python3parser.visitors.basic.Python3ASTVisitor;
 
@@ -14,7 +15,11 @@ public class Return extends Statement{
 	Optional<Expression> value;
 	
 	public Return() {
-		this(null);
+		this((Expression) null);
+	}
+	
+	public Return(String value) {
+		this(new Name(value));
 	}
 	
 	public Return(Expression value) {

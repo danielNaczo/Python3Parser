@@ -40,7 +40,7 @@ import com.github.python3parser.model.stmts.smallStmts.assignStmts.AugAssign;
 
 public class AddClassManipulation {
 	public static void main(String[] args) {
-		createFunction();
+		//createFunction();
 		//createClass();
 		//createForStmt();
 		//createTryStmt();
@@ -49,6 +49,7 @@ public class AddClassManipulation {
 		//createIfStmt();
 		//createImportStmt();
 		//createAssignStmts();
+		generateCode();
 	}
 
 	private static void createFunction() {
@@ -81,7 +82,7 @@ public class AddClassManipulation {
 		functionFooo.addParameter(new Parameter("a"));
 		functionFooo.addDefaultParameter(new DefaultParameter("b", new Num(1)));
 		functionFooo.setVarParameter(new Parameter("c"));
-		functionFooo.addStatement(new Return(null));
+		functionFooo.addStatement(new Return());
 		
 		module.printInConsole();
 	}
@@ -199,6 +200,19 @@ public class AddClassManipulation {
 		
 		module.addStatement(new AugAssign("target", new Add(), "value"));
 		
+		module.printInConsole();
+	}
+
+	private static void generateCode() {
+		Module module = new Module();
+		ClassDef clazz = module.addClass(new ClassDef("Clazz"));
+		clazz.addStatement(new Name("attribute1"));
+		clazz.addStatement(new Name("attribute2"));
+		FunctionDef function = clazz.addFunction(new FunctionDef("function"));
+		Parameter param1 = function.addParameter(new Parameter("a"));
+		Parameter param2 = function.addParameter(new Parameter("b"));
+		Return returnStmt = (Return) function.addStatement(new Return());
+		returnStmt.setValue(Optional.ofNullable(new Add(param1.getParameterNameAsString(), param2.getParameterNameAsString())));
 		module.printInConsole();
 	}
 }

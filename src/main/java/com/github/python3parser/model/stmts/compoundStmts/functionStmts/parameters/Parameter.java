@@ -48,6 +48,10 @@ public class Parameter implements AST {
 	public void setAnnotation(Optional<Expression> annotation) {
 		this.annotation = annotation;
 	}
+	
+	public String getParameterNameAsString() {
+		return parameterName.getName();
+	}
 
 	@Override
 	public boolean equals(Object o) {
