@@ -138,33 +138,15 @@ file_input: (NEWLINE | stmt)* EOF;
 eval_input: testlist NEWLINE* EOF;
 
 decorator: '@' dotted_name ( '(' (arglist)? ')' )? NEWLINE;
-//decorators: decorator+;
-//decorated: decorators (classdef | funcdef | async_funcdef); //TODO decorators in "funcdef" and "classdef"
 
 funcdef: decorator* ASYNC? 'def' NAME parameters ('->' test)? ':' suite;
 
 parameters: '(' (typedargslist)? ')';
-
-
-//just for compare with new "typedargslist"-rule
-//                                  a  or  a=1                                      *c    or    *c, d=1, e=4                        **d        just ',' is diff      **d
-typedargslistOLD: (   tfpdef ('=' test)? (',' tfpdef ('=' test)?)*      (     ',' ('*' (tfpdef)? (',' tfpdef ('=' test)?)*      (',' ('**' tfpdef (',')?)?)?  | '**' tfpdef (',')?     )?    )?
-
-//                      *c          or      *c, d=1, e=4               **d
-                   | '*' (tfpdef)? (',' tfpdef ('=' test)?)* (',' ('**' tfpdef (',')?)?)?
-
-//                      **d
-                   | '**' tfpdef (',')?
-               );
-
-
-
 //              CASE 1              CASE 2             CASE 3
 typedargslist: completeArgs | justKeywordsArgs | kwOnlyListArgs;
 tfpdef: NAME (':' test)?;
 normalOrDefaultTfpDef: tfpdef | defaultTfpdef;
 defaultTfpdef: tfpdef '=' test;
-
 
 // CASE 1
 //                  a  or  a=1                  a   or  a=1
@@ -179,8 +161,6 @@ positionalList: '*' (tfpdef)?;
 //              **d        just ',' is diff      **d
 kwlistArgs1: (',' ('**' tfpdef (',')?)?)?  | '**' tfpdef (',')?;
 
-
-
 //  CASE 2
 //                     * or *c             d or  e=4
 justKeywordsArgs: positionalList (',' normalOrDefaultTfpDef)* (kwlistArgs2)?;
@@ -188,24 +168,9 @@ justKeywordsArgs: positionalList (',' normalOrDefaultTfpDef)* (kwlistArgs2)?;
 //                       **d
 kwlistArgs2: ',' ('**' tfpdef (',')?)?;
 
-
 // CASE 3
 //                      **d
 kwOnlyListArgs: '**' tfpdef (',')?;
-
-
-
-
-//same implementation as "typedargslistOLD", just with 'vfpdef'
-//just for compare with new "varargslist"-rule
-varargslistOLD: (vfpdef ('=' test)? (',' vfpdef ('=' test)?)* (',' (
-        '*' (vfpdef)? (',' vfpdef ('=' test)?)* (',' ('**' vfpdef (',')?)?)?
-      | '**' vfpdef (',')?)?)?
-  | '*' (vfpdef)? (',' vfpdef ('=' test)?)* (',' ('**' vfpdef (',')?)?)?
-  | '**' vfpdef (',')?
-);
-
-
 
 
 //              CASE 1              CASE 2             CASE 3
@@ -213,7 +178,6 @@ varargslist: varCompleteArgs | varJustKeywordsArgs | varKwOnlyListArgs;
 vfpdef: NAME;
 varNormalOrDefaultTfpDef: vfpdef | varDefaultVfpdef;
 varDefaultVfpdef: vfpdef '=' test;
-
 
 // CASE 1
 //                  a  or  a=1                  a   or  a=1
@@ -228,8 +192,6 @@ varPositionalList: '*' (vfpdef)?;
 //              **d        just ',' is diff      **d
 varKwlistArgs1: (',' ('**' vfpdef (',')?)?)?  | '**' vfpdef (',')?;
 
-
-
 //  CASE 2
 //                     * or *c             d or  e=4
 varJustKeywordsArgs: varPositionalList (',' varNormalOrDefaultTfpDef)* (varKwlistArgs2)?;
@@ -237,22 +199,15 @@ varJustKeywordsArgs: varPositionalList (',' varNormalOrDefaultTfpDef)* (varKwlis
 //                       **d
 varKwlistArgs2: ',' ('**' vfpdef (',')?)?;
 
-
 // CASE 3
 //                      **d
 varKwOnlyListArgs: '**' vfpdef (',')?;
 
-
-
+//STATEMENTS
 stmt: simple_stmt | compound_stmt;
 simple_stmt: small_stmt (';' small_stmt)* (';')? NEWLINE;
 small_stmt: (expr_stmt | del_stmt | pass_stmt | flow_stmt |
              import_stmt | global_stmt | nonlocal_stmt | assert_stmt);
-
-//TODO old rule: delete when not needed anymore
-expr_stmtOLD: testlist_star_expr (annassign | augassign (yield_expr|testlist) |
-                     ('=' (yield_expr|testlist_star_expr))*);
-
 expr_stmt: testlist_star_expr | expr_stmtIndividualAssign | expr_stmtNormalAssign;
 expr_stmtIndividualAssign: testlist_star_expr (annassign | augassign (yield_expr|testlist));
 expr_stmtNormalAssign: testlist_star_expr '=' expr_NormalAssignList ('=' expr_NormalAssignList)*;
@@ -266,7 +221,6 @@ testOrStarList_expr: test|star_expr;
 augassign: (ADD_ASSIGN | SUB_ASSIGN | MULT_ASSIGN | AT_ASSIGN | DIV_ASSIGN | MOD_ASSIGN
 	        | AND_ASSIGN | OR_ASSIGN | XOR_ASSIGN | LEFT_SHIFT_ASSIGN | RIGHT_SHIFT_ASSIGN 
 	        | POWER_ASSIGN | IDIV_ASSIGN );
-// For normal and annotated assignments, additional restrictions enforced by the interpreter
 del_stmt: 'del' exprlist;
 pass_stmt: 'pass';
 flow_stmt: break_stmt | continue_stmt | return_stmt | raise_stmt | yield_stmt;
@@ -277,7 +231,6 @@ yield_stmt: yield_expr;
 raise_stmt: 'raise' (test ('from' test)?)?;
 import_stmt: import_name | import_from;
 import_name: 'import' dotted_as_names;
-// note below: the ('.' | '...') is necessary because '...' is tokenized as ELLIPSIS
 import_from: ('from' (  (DOT | ELLIPSIS)* dotted_name      |    (DOT | ELLIPSIS)+ )
               'import' (    STAR     |   '(' import_as_names ')'   |   import_as_names)
              );
@@ -302,10 +255,10 @@ try_stmt: ('try' ':' suite (        (except_clause ':' suite)+   (ELSE ':' suite
           );
 with_stmt: 'with' with_item (',' with_item)*  ':' suite;
 with_item: test ('as' expr)?;
-// NB compile.c makes sure that the default except clause is last
 except_clause: 'except' (test ('as' NAME)?)?;
 suite: simple_stmt | NEWLINE INDENT stmt+ DEDENT;
 
+//EXPRESSIONS
 test: or_test ('if' or_test 'else' test)? | lambdef;
 test_nocond: or_test | lambdef_nocond;
 lambdef: 'lambda' (varargslist)? ':' test;
@@ -324,30 +277,22 @@ xor_expr: and_expr ('^' and_expr)*;
 and_expr: shift_expr ('&' shift_expr)*;
 shift_expr: arith_expr (shift_op arith_expr)*;
 shift_op: LEFT_SHIFT | RIGHT_SHIFT;
-
 arith_expr: term (arith_op term)*;
 arith_op: ADD | MINUS;
-
 term: factor (term_op factor)*;
 term_op: STAR | AT | DIV | MOD | IDIV;
-
 factor: factor_op factor | power;
 factor_op: ADD | MINUS | NOT_OP;
-
 power: await ('**' factor)?;
 await: (AWAIT)? atom_expr;
 atom_expr: '(' test ')' | atom trailer*;
-
 atom: ( tuple | list | dictionaryOrSet | NAME | NUMBER | STRING+ | ELLIPSIS | NONE | TRUE | FALSE);
-//from fastparse:Call     Subscript        Attribute
 trailer: trailerCall | trailerSubscript | trailerName;
-trailerCall: '(' (arglist)? ')';         // FunctionCall
+trailerCall: '(' (arglist)? ')';         // ArgumentsCall
 trailerSubscript: '[' subscriptlist ']'; // Subscript
 trailerName: '.' NAME;                   // Attribute
 
 tuple: '(' (testlist_compTuple)? ')';
-//TODO schauen ob "testOrStar_expr" weg kann, weil es bereits in "factor" abgedeckt sein könnte
-//TODO für einelementige Tupel muss "(elem, )" geschrieben werden und nicht "(elem)"
 testlist_compTuple: yield_expr | testOrStar_expr ( (comp_for)* | (',' testOrStarList_expr)* (',')? );
 
 list: '[' (testlist_compList)? ']';
@@ -365,11 +310,6 @@ dicts:     test ':' test | '**' expr ;
 setFirst: test | star_expr ;
 sets:     test | star_expr ;
 
-//TODO old dictorsetmaker rule
-dictorsetmakerOLD: (        (     (test ':' test | '**' expr)      (   comp_for |    (',' (test ':' test | '**' expr))*  (',')?   )   )
-                    |    (     (test | star_expr)               (   comp_for |    (',' (test | star_expr))*           (',')?   )   )
-                 );
-
 subscriptlist: subscript (',' subscript)* (',')?;
 subscript: subscriptIndex | subscriptSlice;
 subscriptIndex: test;
@@ -382,9 +322,7 @@ exprlist: exprOrStarExpr (',' exprOrStarExpr)* (',')?;
 exprOrStarExpr: expr|star_expr;
 testlist: test (',' test)* (',')?;
 
-
 classdef: decorator* 'class' NAME ('(' (arglist)? ')')? ':' suite;
-
 arglist: argument (',' argument)*  (',')?;
 
 // The reason that keywords are test nodes instead of NAME is that using NAME
@@ -403,18 +341,8 @@ argumentKeyword: test '=' test;
 argumentStar: '*' test;
 argumentDoubleStar: '**' test;
 
-
-//TODO old comp-rules
-//comp_iterOLD: comp_for | comp_if;
-//comp_forOLD: (ASYNC)? 'for' exprlist 'in' or_test (comp_iter)?;
-//comp_ifOLD: 'if' test_nocond (comp_iter)?;
-
-
 comp_for: (ASYNC)? 'for' exprlist 'in' or_test (comp_if)*;
 comp_if: 'if' test_nocond;
-
-// not used in grammar, but may appear in "node" passed from Parser to Compiler
-encoding_decl: NAME;
 
 yield_expr: 'yield' (yield_arg)?;
 yield_arg: 'from' test | testlist;

@@ -383,11 +383,6 @@ public class GenericUnsupportedCSTVisitor<T> extends Python3BaseVisitor<T>{
 	}
 
 	@Override
-	public T visitEncoding_decl(Encoding_declContext ctx) {
-		throw new UnsupportedANTLRMethodException();
-	}
-
-	@Override
 	public T visitAtom_expr(Atom_exprContext ctx) {
 		throw new UnsupportedANTLRMethodException();
 	}
@@ -399,11 +394,6 @@ public class GenericUnsupportedCSTVisitor<T> extends Python3BaseVisitor<T>{
 
 	@Override
 	public T visitAsync_stmt(Async_stmtContext ctx) {
-		throw new UnsupportedANTLRMethodException();
-	}
-
-	@Override
-	public T visitTypedargslistOLD(TypedargslistOLDContext ctx) {
 		throw new UnsupportedANTLRMethodException();
 	}
 
@@ -453,11 +443,6 @@ public class GenericUnsupportedCSTVisitor<T> extends Python3BaseVisitor<T>{
 	}
 
 	@Override
-	public T visitVarargslistOLD(VarargslistOLDContext ctx) {
-		throw new UnsupportedANTLRMethodException();
-	}
-
-	@Override
 	public T visitVarNormalOrDefaultTfpDef(VarNormalOrDefaultTfpDefContext ctx) {
 		throw new UnsupportedANTLRMethodException();
 	}
@@ -499,11 +484,6 @@ public class GenericUnsupportedCSTVisitor<T> extends Python3BaseVisitor<T>{
 
 	@Override
 	public T visitVarKwOnlyListArgs(VarKwOnlyListArgsContext ctx) {
-		throw new UnsupportedANTLRMethodException();
-	}
-
-	@Override
-	public T visitExpr_stmtOLD(Expr_stmtOLDContext ctx) {
 		throw new UnsupportedANTLRMethodException();
 	}
 
@@ -614,11 +594,6 @@ public class GenericUnsupportedCSTVisitor<T> extends Python3BaseVisitor<T>{
 
 	@Override
 	public T visitSets(SetsContext ctx) {
-		throw new UnsupportedANTLRMethodException();
-	}
-
-	@Override
-	public T visitDictorsetmakerOLD(DictorsetmakerOLDContext ctx) {
 		throw new UnsupportedANTLRMethodException();
 	}
 
