@@ -14,7 +14,6 @@ import com.github.python3parser.model.expr.operators.binaryops.Add;
 import com.github.python3parser.model.expr.operators.unaryops.Yield;
 import com.github.python3parser.model.mods.Module;
 import com.github.python3parser.model.stmts.Body;
-import com.github.python3parser.model.stmts.Statement;
 import com.github.python3parser.model.stmts.compoundStmts.ClassDef;
 import com.github.python3parser.model.stmts.compoundStmts.If;
 import com.github.python3parser.model.stmts.compoundStmts.While;
@@ -26,7 +25,6 @@ import com.github.python3parser.model.stmts.compoundStmts.tryExceptStmts.ExceptH
 import com.github.python3parser.model.stmts.compoundStmts.tryExceptStmts.Try;
 import com.github.python3parser.model.stmts.compoundStmts.withStmts.With;
 import com.github.python3parser.model.stmts.compoundStmts.withStmts.WithItem;
-import com.github.python3parser.model.stmts.flowStmts.Break;
 import com.github.python3parser.model.stmts.flowStmts.Return;
 import com.github.python3parser.model.stmts.importStmts.Alias;
 import com.github.python3parser.model.stmts.importStmts.Import;

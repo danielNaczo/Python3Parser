@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import com.github.python3parser.model.expr.Expression;
 import com.github.python3parser.model.stmts.Body;
 import com.github.python3parser.model.stmts.Statement;
 import com.github.python3parser.visitors.basic.Python3ASTVisitor;

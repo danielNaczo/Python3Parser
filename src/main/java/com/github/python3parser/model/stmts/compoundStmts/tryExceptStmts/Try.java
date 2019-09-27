@@ -6,7 +6,6 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 
-import com.github.python3parser.model.expr.Expression;
 import com.github.python3parser.model.stmts.Body;
 import com.github.python3parser.model.stmts.Statement;
 import com.github.python3parser.visitors.basic.Python3ASTVisitor;

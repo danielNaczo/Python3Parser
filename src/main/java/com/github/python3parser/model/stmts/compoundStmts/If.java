@@ -9,7 +9,6 @@ import java.util.Optional;
 import com.github.python3parser.model.expr.Expression;
 import com.github.python3parser.model.stmts.Body;
 import com.github.python3parser.model.stmts.Statement;
-import com.github.python3parser.model.stmts.compoundStmts.tryExceptStmts.ExceptHandler;
 import com.github.python3parser.visitors.basic.Python3ASTVisitor;
 
 //this class varies from the original AST class

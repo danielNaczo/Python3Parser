@@ -7,7 +7,6 @@ import org.antlr.v4.runtime.CommonTokenStream;
 
 import com.github.python3parser.Python3Lexer;
 import com.github.python3parser.Python3Parser;
-import com.github.python3parser.model.AST;
 import com.github.python3parser.model.mods.ExpressionMod;
 import com.github.python3parser.model.mods.Interactive;
 import com.github.python3parser.model.mods.Module;
