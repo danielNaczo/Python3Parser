@@ -112,7 +112,7 @@ public class Try extends Statement{
 	
 	public Statement addStatement(Statement statement) {
 		if (this.body == null) {
-			this.body = statement instanceof Expression ? (Expression) statement : statement;
+			this.body = statement;
 			return statement;
 		}
 		this.body = transformStmtToBody();

@@ -31,7 +31,7 @@ public class ModulePrettyPrintVisitor extends GenericUnsupportedASTVisitor<Strin
 			throw new Python3ParserException("'Module' has no statements.");
 		}
 		
-			for (int i = 0; i < statements.size(); i++) {
+		for (int i = 0; i < statements.size(); i++) {
 			Statement statement = statements.get(i);
 			if (statement instanceof Expression) {
 				string = string.concat(param.getIndentationString());

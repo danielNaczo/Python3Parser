@@ -40,16 +40,17 @@ import com.github.python3parser.model.stmts.smallStmts.assignStmts.AugAssign;
 
 public class AddClassManipulation {
 	public static void main(String[] args) {
-		//createFunction();
-		//createClass();
-		//createForStmt();
-		//createTryStmt();
-		//createWithStmt();
-		//createWhileStmt();
-		//createIfStmt();
-		//createImportStmt();
-		//createAssignStmts();
+		createFunction();
+		createClass();
+		createForStmt();
+		createTryStmt();
+		createWithStmt();
+		createWhileStmt();
+		createIfStmt();
+		createImportStmt();
+		createAssignStmts();
 		generateCode();
+		testOneExpressionInBody();
 	}
 
 	private static void createFunction() {
@@ -213,6 +214,13 @@ public class AddClassManipulation {
 		Parameter param2 = function.addParameter(new Parameter("b"));
 		Return returnStmt = (Return) function.addStatement(new Return());
 		returnStmt.setValue(Optional.ofNullable(new Add(param1.getParameterNameAsString(), param2.getParameterNameAsString())));
+		module.printInConsole();
+	}
+
+	private static void testOneExpressionInBody() {
+		Module module = new Module();
+		ClassDef clazz = module.addClass(new ClassDef("Clazz"));
+		clazz.addStatement(new Name("attr"));
 		module.printInConsole();
 	}
 }

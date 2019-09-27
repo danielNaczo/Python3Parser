@@ -107,7 +107,7 @@ public class If extends Statement{
 	
 	public Statement addStatementToBody(Statement statement) {
 		if (this.ifBody == null) {
-			this.ifBody= statement instanceof Expression ? (Expression) statement : statement;
+			this.ifBody= statement;
 			return statement;
 		}
 		this.ifBody = transformStmtToBody();
