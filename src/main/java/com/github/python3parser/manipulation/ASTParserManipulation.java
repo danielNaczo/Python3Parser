@@ -5,7 +5,7 @@ import com.github.python3parser.utilities.ASTParser;
 
 public class ASTParserManipulation {
 	public static void main(String[] args) throws Exception {
-		Module module = ASTParser.parseModule("examples/lib/abc.py");
+		Module module = ASTParser.parseModuleWithFile("examples/lib/abc.py");
 		module.printInConsole();
 	}
 }
