@@ -4,7 +4,7 @@
     <groupId>com.github.python3parser</groupId>
     <artifactId>python3parser</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.3</version>
 
     <name>python3parser</name>
     <url>https://github.com/danielNaczo/Python3Parser</url>
@@ -40,7 +40,7 @@
         <connection>scm:git:git://github.com/danielNaczo/Python3Parser.git</connection>
         <developerConnection>scm:git:git@github.com:danielNaczo/Python3Parser.git</developerConnection>
         <url>https://github.com/danielNaczo/Python3Parser.git</url>
-        <tag>HEAD</tag>
+        <tag>python3parser-1.0.3</tag>
     </scm>
 
     <issueManagement>
