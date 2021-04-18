@@ -48,6 +48,7 @@
         <url>https://github.com/danielNaczo/Python3Parser/issues</url>
     </issueManagement>
 
+<!--
     <distributionManagement>
         <repository>
             <id>bintray-danielnaczo-Python3Parser</id>
@@ -55,6 +56,20 @@
             <url>https://api.bintray.com/maven/danielnaczo/Python3Parser/Python3Parser/;publish=1</url>
         </repository>
     </distributionManagement>
+-->
+
+	<distributionManagement>
+	    <repository>
+	        <id>artifactory-mvn-dev-local</id>
+	        <name>Python3Parser</name>
+	        <url>https://naczos.jfrog.io/artifactory/artifactory-mvn-dev-local</url>
+	    </repository>
+	    <snapshotRepository>
+	        <id>artifactory-mvn-dev-local</id>
+	        <name>Python3Parser</name>
+	        <url>https://naczos.jfrog.io/artifactory/artifactory-mvn-dev-local</url>
+	    </snapshotRepository>
+	</distributionManagement>
 
     <build>
         <plugins>
