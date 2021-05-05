@@ -34,5 +34,5 @@ dependencies {
 If you have a Scala-based project you have to add the following lines into your *build.sbt* file:
 
 ```
-libraryDependencies += "com.github.python3parser" % "python3parser" % „1.0.2“
-resolvers += Resolver.bintrayRepo("danielnaczo", "Python3Parser")
+libraryDependencies += "com.github.python3parser" % "python3parser" % "1.0.6"
+resolvers += Resolver.mavenLocal
