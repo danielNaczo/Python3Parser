@@ -4,7 +4,7 @@
     <groupId>com.github.python3parser</groupId>
     <artifactId>python3parser</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.6-SNAPSHOT</version>
+    <version>1.0.6</version>
 
     <name>python3parser</name>
     <url>https://github.com/danielNaczo/Python3Parser</url>
