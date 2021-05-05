@@ -58,6 +58,7 @@
     </distributionManagement>
 -->
 
+<!--
 	<distributionManagement>
 	    <repository>
 	        <id>artifactory-mvn-dev-local</id>
@@ -70,6 +71,20 @@
 	        <url>https://naczos.jfrog.io/artifactory/artifactory-mvn-dev-local</url>
 	    </snapshotRepository>
 	</distributionManagement>
+-->
+
+<distributionManagement>
+	<snapshotRepository>
+        <id>snapshots</id>
+        <name>a0nxwllsyd8a5-artifactory-primary-0-snapshots</name>
+        <url>https://naczos.jfrog.io/artifactory/python3parser-libs-snapshot-local</url>
+    </snapshotRepository>
+    <repository>
+        <id>central</id>
+        <name>a0nxwllsyd8a5-artifactory-primary-0-releases</name>
+        <url>https://naczos.jfrog.io/artifactory/python3parser-libs-release-local</url>
+    </repository>
+</distributionManagement>
 
     <build>
         <plugins>
