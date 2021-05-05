@@ -13,16 +13,22 @@ To include the *Python3Parser* into your project just add the following *depende
 <dependency>
    <groupId>com.github.python3parser</groupId>
    <artifactId>python3parser</artifactId>
-   <version>1.0.2</version>
+   <version>1.0.6</version>
 </dependency>
 ```
 
 Make sure you import the latest release, which you can find in https://github.com/danielNaczo/Python3Parser/releases.
 
-When you use Gradle, import the following line into your Gradle-Project:
+When you use Gradle, add the following lines to build.gradle:
 
 ```
-compile 'com.github.python3parser:python3parser:1.0.2'
+repositories {
+    mavenLocal()
+}
+
+dependencies {
+    compile(group: 'com.github.python3parser', name: 'python3parser', version: '1.0.6')
+}
 ```
 
 If you have a Scala-based project you have to add the following lines into your *build.sbt* file:
