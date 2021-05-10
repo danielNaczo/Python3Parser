@@ -6,7 +6,7 @@ you can analyze, process and generate Python3-Code. This project offers a *Prett
 Python3 source code. 
 
 
-## Import Python3Parser into your Project
+## Import Python3Parser into your Project --- OUTDATED (is currently migrated from JCenter to Maven Central)
 To include the *Python3Parser* into your project just add the following *dependency* into your Maven-Project:
 
 ```
