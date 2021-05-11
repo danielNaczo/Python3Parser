@@ -4,8 +4,11 @@ install: mvn -B install -DskipTests=true
 script: mvn -B test
 cache:
   directories:
-    - $HOME/.ivy2
+  - "$HOME/.ivy2"
 jdk:
-  - openjdk8
+- openjdk8
 after_success:
-  - mvn -B jacoco:prepare-agent test jacoco:report coveralls:report
+- mvn -B jacoco:prepare-agent test jacoco:report coveralls:report
+env:
+  global:
+    secure: IeQwR9ojNiJT19CNtBkC2zjIvP2CNa8xH8qrJiIU0a6Z/pduoThuKlUPxNr42bV66s45TeNXsXayfee9L9l/6RuHv6w1hpvuXtYHJIUQ32LPBg36nkBu/xQDn4F+j7kaIzUc3XmL4HFfG5tBuTi8q7Bq/taHh4AOOC+QzOrsmqcwA++FiQ9hLmBhX7JTc4dovxMZGb4euL6VQOD4Y4DH2XqNn5yext3bAaqqXMsmAyYd3+ozOj80YEU8NauijeRgn3Q2sJPV+BIWi20VbB8P3Ej5mL9V0aWOLhHrYvU96WsZnjeEXJUB4ZjdKU+TIUrPIc5fujNkcKFMf1cY9El5kiB8Gf877jHLvvUzTf7xIDtS7ZOjXGszqF2gRsZCcuGHowZjaObYMr/MiF9rBVeJY2dzDjbIc6vH+zQmBD7nHlmNlwGnSJd/Z8/vhKa59XpORFmv75Ip9NEXyoOBIHQoo9MJkE0g5H3W4tRDiJLqyT277IolgdmxvX2kXwRI4sw2icGmsZn1V07rHzfN/QERxGcBCxQNfEKBGPfc/BV7LK+LEZ9cFOyl363VYEJ90A/yFkvHaDut07c7pyeaIBYeNWLBlnkrOgvAZDWgyJ/Kc9/Rp7EqG5yzXzHZbHoLccObnZmMVRaTDK4limpoU5++NZoQnPOZqnUFI3Nz2tcHMtY=
