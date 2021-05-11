@@ -6,10 +6,10 @@
     <packaging>jar</packaging>
     <version>1.0.3</version>
 
-    <name>python3parser</name>
+    <name>Python3Parser</name>
     <url>https://github.com/danielNaczo/Python3Parser</url>
     <inceptionYear>2019</inceptionYear>
-    <description>A java-based Python3-Parser</description>
+    <description>A Java-based Python3-Parser.</description>
 
     <licenses>
         <license>
@@ -24,7 +24,8 @@
         <developer>
             <name>Daniel Naczinski</name>
             <email>naczinski.daniel@gmail.com</email>
-            <url>https://github.com/danielNaczo</url>
+            <organization>io.github.danielnaczo</organization>
+            <organizationUrl>https://github.com/danielNaczo</organizationUrl>
             <id>danielNaczo</id>
         </developer>
     </developers>
@@ -48,46 +49,30 @@
         <url>https://github.com/danielNaczo/Python3Parser/issues</url>
     </issueManagement>
 
-<!--
     <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
         <repository>
-            <id>bintray-danielnaczo-Python3Parser</id>
-            <name>danielnaczo-Python3Parser</name>
-            <url>https://api.bintray.com/maven/danielnaczo/Python3Parser/Python3Parser/;publish=1</url>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
--->
-
-<!--
-	<distributionManagement>
-	    <repository>
-	        <id>artifactory-mvn-dev-local</id>
-	        <name>Python3Parser</name>
-	        <url>https://naczos.jfrog.io/artifactory/artifactory-mvn-dev-local</url>
-	    </repository>
-	    <snapshotRepository>
-	        <id>artifactory-mvn-dev-local</id>
-	        <name>Python3Parser</name>
-	        <url>https://naczos.jfrog.io/artifactory/artifactory-mvn-dev-local</url>
-	    </snapshotRepository>
-	</distributionManagement>
--->
-
-<distributionManagement>
-	<snapshotRepository>
-        <id>snapshots</id>
-        <name>a0nxwllsyd8a5-artifactory-primary-0-snapshots</name>
-        <url>https://naczos.jfrog.io/artifactory/python3parser-libs-snapshot-local</url>
-    </snapshotRepository>
-    <repository>
-        <id>central</id>
-        <name>a0nxwllsyd8a5-artifactory-primary-0-releases</name>
-        <url>https://naczos.jfrog.io/artifactory/python3parser-libs-release-local</url>
-    </repository>
-</distributionManagement>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.8</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -176,12 +161,34 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.0.1</version>
-                <configuration>
-                    <additionalOptions>
-                        <additionalOption>-Xdoclint:none</additionalOption>
-                    </additionalOptions>
-                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <configuration>
+                            <keyname>9C19F8B1</keyname>
+                            <passphraseServerId>9C19F8B1</passphraseServerId>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
