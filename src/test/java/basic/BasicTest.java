@@ -9,13 +9,13 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.python3parser.visitors.ast.ModuleVisitor;
-import com.github.python3parser.visitors.prettyprint.IndentationPrettyPrint;
-import com.github.python3parser.visitors.prettyprint.ModulePrettyPrintVisitor;
+import io.github.danielnaczo.python3parser.visitors.ast.ModuleVisitor;
+import io.github.danielnaczo.python3parser.visitors.prettyprint.IndentationPrettyPrint;
+import io.github.danielnaczo.python3parser.visitors.prettyprint.ModulePrettyPrintVisitor;
 import com.github.python3parser.Python3Lexer;
 import com.github.python3parser.Python3Parser;
-import com.github.python3parser.model.AST;
-import com.github.python3parser.model.mods.Module;
+import io.github.danielnaczo.python3parser.model.AST;
+import io.github.danielnaczo.python3parser.model.mods.Module;
 
 public abstract class BasicTest {
 

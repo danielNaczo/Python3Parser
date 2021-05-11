@@ -149,7 +149,7 @@ else:
     PYTHON2_EXCEPTIONS += ("WindowsError",)
 
 for excname in PYTHON2_EXCEPTIONS:
-    NAME_MAPPING[("com.github.python3parser.visitors.exceptions", excname)] = ("builtins", excname)
+    NAME_MAPPING[("io.github.danielnaczo.python3parser.visitors.exceptions", excname)] = ("builtins", excname)
 
 MULTIPROCESSING_EXCEPTIONS = (
     'AuthenticationError',
@@ -196,7 +196,7 @@ REVERSE_IMPORT_MAPPING.update({
 
 NAME_MAPPING.update({
     ('__builtin__', 'basestring'): ('builtins', 'str'),
-    ('com.github.python3parser.visitors.exceptions', 'StandardError'): ('builtins', 'Exception'),
+    ('io.github.danielnaczo.python3parser.visitors.exceptions', 'StandardError'): ('builtins', 'Exception'),
     ('UserDict', 'UserDict'): ('collections', 'UserDict'),
     ('socket', '_socketobject'): ('socket', 'SocketType'),
 })
@@ -241,11 +241,11 @@ PYTHON3_OSERROR_EXCEPTIONS = (
 )
 
 for excname in PYTHON3_OSERROR_EXCEPTIONS:
-    REVERSE_NAME_MAPPING[('builtins', excname)] = ('com.github.python3parser.visitors.exceptions', 'OSError')
+    REVERSE_NAME_MAPPING[('builtins', excname)] = ('io.github.danielnaczo.python3parser.visitors.exceptions', 'OSError')
 
 PYTHON3_IMPORTERROR_EXCEPTIONS = (
     'ModuleNotFoundError',
 )
 
 for excname in PYTHON3_IMPORTERROR_EXCEPTIONS:
-    REVERSE_NAME_MAPPING[('builtins', excname)] = ('com.github.python3parser.visitors.exceptions', 'ImportError')
+    REVERSE_NAME_MAPPING[('builtins', excname)] = ('io.github.danielnaczo.python3parser.visitors.exceptions', 'ImportError')

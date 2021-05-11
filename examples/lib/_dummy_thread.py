@@ -32,7 +32,7 @@ def start_new_thread(function, args, kwargs={}):
     Compatibility is maintained by making sure that ``args`` is a
     tuple and ``kwargs`` is a dictionary.  If an exception is raised
     and it is SystemExit (which can be done by _thread.exit()) it is
-    caught and nothing is done; all other com.github.python3parser.visitors.exceptions are printed out
+    caught and nothing is done; all other io.github.danielnaczo.python3parser.visitors.exceptions are printed out
     by using traceback.print_exc().
 
     If the executed function calls interrupt_main the KeyboardInterrupt will be

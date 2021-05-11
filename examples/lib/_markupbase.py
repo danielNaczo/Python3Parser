@@ -127,7 +127,7 @@ class ParserBase:
                 if decltype == "doctype":
                     j = self._parse_doctype_subset(j + 1, i)
                 elif decltype in {"attlist", "linktype", "link", "element"}:
-                    # must tolerate []'d groups in a content com.github.python3parser.model in an element declaration
+                    # must tolerate []'d groups in a content io.github.danielnaczo.python3parser.model in an element declaration
                     # also in data attribute specifications of attlist declaration
                     # also link type declaration subsets in linktype declarations
                     # also link attribute specification lists in link declarations
@@ -250,7 +250,7 @@ class ParserBase:
         name, j = self._scan_name(i, declstartpos)
         if j == -1:
             return -1
-        # style content com.github.python3parser.model; just skip until '>'
+        # style content io.github.danielnaczo.python3parser.model; just skip until '>'
         rawdata = self.rawdata
         if '>' in rawdata[j:]:
             return rawdata.find(">", j) + 1
