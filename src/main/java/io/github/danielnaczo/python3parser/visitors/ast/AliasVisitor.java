@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import com.github.python3parser.Python3Parser.Dotted_as_nameContext;
-import com.github.python3parser.Python3Parser.Dotted_as_namesContext;
-import com.github.python3parser.Python3Parser.Dotted_nameContext;
-import com.github.python3parser.Python3Parser.Import_as_nameContext;
-import com.github.python3parser.Python3Parser.Import_as_namesContext;
+import io.github.danielnaczo.python3parser.Python3Parser.Dotted_as_nameContext;
+import io.github.danielnaczo.python3parser.Python3Parser.Dotted_as_namesContext;
+import io.github.danielnaczo.python3parser.Python3Parser.Dotted_nameContext;
+import io.github.danielnaczo.python3parser.Python3Parser.Import_as_nameContext;
+import io.github.danielnaczo.python3parser.Python3Parser.Import_as_namesContext;
 import io.github.danielnaczo.python3parser.model.Identifier;
 import io.github.danielnaczo.python3parser.model.stmts.importStmts.Alias;
 

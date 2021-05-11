@@ -1,7 +1,7 @@
 package io.github.danielnaczo.python3parser.visitors.ast;
 
-import com.github.python3parser.Python3Parser.ArgumentDoubleStarContext;
-import com.github.python3parser.Python3Parser.ArgumentKeywordContext;
+import io.github.danielnaczo.python3parser.Python3Parser.ArgumentDoubleStarContext;
+import io.github.danielnaczo.python3parser.Python3Parser.ArgumentKeywordContext;
 import io.github.danielnaczo.python3parser.model.expr.Expression;
 import io.github.danielnaczo.python3parser.model.expr.atoms.trailers.arguments.Keyword;
 

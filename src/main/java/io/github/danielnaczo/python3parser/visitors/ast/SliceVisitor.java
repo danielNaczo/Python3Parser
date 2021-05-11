@@ -1,13 +1,13 @@
 package io.github.danielnaczo.python3parser.visitors.ast;
 
-import io.github.danielnaczo.python3parser.visitors.exceptions.RuleException;
-import com.github.python3parser.Python3Parser.SubscriptContext;
-import com.github.python3parser.Python3Parser.SubscriptIndexContext;
-import com.github.python3parser.Python3Parser.SubscriptSliceContext;
+import io.github.danielnaczo.python3parser.Python3Parser.SubscriptContext;
+import io.github.danielnaczo.python3parser.Python3Parser.SubscriptIndexContext;
+import io.github.danielnaczo.python3parser.Python3Parser.SubscriptSliceContext;
 import io.github.danielnaczo.python3parser.model.expr.Expression;
 import io.github.danielnaczo.python3parser.model.expr.atoms.trailers.subscripts.Index;
 import io.github.danielnaczo.python3parser.model.expr.atoms.trailers.subscripts.slices.Slice;
 import io.github.danielnaczo.python3parser.model.expr.atoms.trailers.subscripts.slices.SliceAbstract;
+import io.github.danielnaczo.python3parser.visitors.exceptions.RuleException;
 
 public class SliceVisitor extends GenericUnsupportedCSTVisitor<SliceAbstract>{
 

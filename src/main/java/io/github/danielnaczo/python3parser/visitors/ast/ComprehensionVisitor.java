@@ -3,7 +3,7 @@ package io.github.danielnaczo.python3parser.visitors.ast;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.python3parser.Python3Parser.Comp_forContext;
+import io.github.danielnaczo.python3parser.Python3Parser.Comp_forContext;
 import io.github.danielnaczo.python3parser.model.expr.Expression;
 import io.github.danielnaczo.python3parser.model.expr.comprehensions.Comprehension;
 

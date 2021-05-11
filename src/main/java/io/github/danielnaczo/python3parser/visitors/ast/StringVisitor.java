@@ -1,6 +1,6 @@
 package io.github.danielnaczo.python3parser.visitors.ast;
 
-import com.github.python3parser.Python3Parser.Dotted_nameContext;
+import io.github.danielnaczo.python3parser.Python3Parser.Dotted_nameContext;
 
 public class StringVisitor extends GenericUnsupportedCSTVisitor<String> {
 	

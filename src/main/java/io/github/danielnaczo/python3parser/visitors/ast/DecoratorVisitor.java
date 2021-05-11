@@ -1,6 +1,6 @@
 package io.github.danielnaczo.python3parser.visitors.ast;
 
-import com.github.python3parser.Python3Parser.DecoratorContext;
+import io.github.danielnaczo.python3parser.Python3Parser.DecoratorContext;
 import io.github.danielnaczo.python3parser.model.Identifier;
 import io.github.danielnaczo.python3parser.model.expr.Expression;
 import io.github.danielnaczo.python3parser.model.stmts.compoundStmts.functionStmts.Decorator;

@@ -1,7 +1,6 @@
 package io.github.danielnaczo.python3parser.visitors.ast;
 
-import io.github.danielnaczo.python3parser.visitors.exceptions.RuleException;
-import com.github.python3parser.Python3Parser.AugassignContext;
+import io.github.danielnaczo.python3parser.Python3Parser.AugassignContext;
 import io.github.danielnaczo.python3parser.model.expr.operators.Operator;
 import io.github.danielnaczo.python3parser.model.expr.operators.binaryops.Add;
 import io.github.danielnaczo.python3parser.model.expr.operators.binaryops.At;
@@ -16,6 +15,7 @@ import io.github.danielnaczo.python3parser.model.expr.operators.binaryops.Mult;
 import io.github.danielnaczo.python3parser.model.expr.operators.binaryops.Pow;
 import io.github.danielnaczo.python3parser.model.expr.operators.binaryops.RShift;
 import io.github.danielnaczo.python3parser.model.expr.operators.binaryops.Sub;
+import io.github.danielnaczo.python3parser.visitors.exceptions.RuleException;
 
 //TODO this class is just for AugAssigns: rename this class
 public class OperatorVisitor extends GenericUnsupportedCSTVisitor<Operator> {

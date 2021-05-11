@@ -1,13 +1,13 @@
 package io.github.danielnaczo.python3parser.visitors.ast.parameters;
 
-import com.github.python3parser.Python3Parser.KwlistArgs1Context;
-import com.github.python3parser.Python3Parser.KwlistArgs2Context;
-import com.github.python3parser.Python3Parser.PositionalListContext;
-import com.github.python3parser.Python3Parser.TfpdefContext;
-import com.github.python3parser.Python3Parser.VarKwlistArgs1Context;
-import com.github.python3parser.Python3Parser.VarKwlistArgs2Context;
-import com.github.python3parser.Python3Parser.VarPositionalListContext;
-import com.github.python3parser.Python3Parser.VfpdefContext;
+import io.github.danielnaczo.python3parser.Python3Parser.KwlistArgs1Context;
+import io.github.danielnaczo.python3parser.Python3Parser.KwlistArgs2Context;
+import io.github.danielnaczo.python3parser.Python3Parser.PositionalListContext;
+import io.github.danielnaczo.python3parser.Python3Parser.TfpdefContext;
+import io.github.danielnaczo.python3parser.Python3Parser.VarKwlistArgs1Context;
+import io.github.danielnaczo.python3parser.Python3Parser.VarKwlistArgs2Context;
+import io.github.danielnaczo.python3parser.Python3Parser.VarPositionalListContext;
+import io.github.danielnaczo.python3parser.Python3Parser.VfpdefContext;
 import io.github.danielnaczo.python3parser.model.Identifier;
 import io.github.danielnaczo.python3parser.model.expr.Expression;
 import io.github.danielnaczo.python3parser.model.stmts.compoundStmts.functionStmts.parameters.Parameter;

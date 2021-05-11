@@ -104,7 +104,7 @@
 		        <configuration>
 		          <listener>false</listener>
 		          <visitor>true</visitor>
-                  <outputDirectory>${project.build.directory}/generated-sources/antlr4/com/github/python3parser</outputDirectory>
+                  <outputDirectory>${project.build.directory}/generated-sources/antlr4/io/github/danielnaczo/python3parser</outputDirectory>
 		        </configuration>
 		        <executions>
 		          <execution>
@@ -186,11 +186,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.7.1</version>
-                <configuration>
-                    <additionalOptions>
-                        <additionalOption>-Xdoclint:none</additionalOption>
-                    </additionalOptions>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

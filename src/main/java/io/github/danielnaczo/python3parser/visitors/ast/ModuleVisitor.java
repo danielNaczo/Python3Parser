@@ -4,13 +4,15 @@ package io.github.danielnaczo.python3parser.visitors.ast;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.danielnaczo.python3parser.Python3Parser.Eval_inputContext;
+import io.github.danielnaczo.python3parser.Python3Parser.File_inputContext;
+import io.github.danielnaczo.python3parser.Python3Parser.Single_inputContext;
 import io.github.danielnaczo.python3parser.model.AST;
 import io.github.danielnaczo.python3parser.model.expr.Expression;
 import io.github.danielnaczo.python3parser.model.mods.ExpressionMod;
 import io.github.danielnaczo.python3parser.model.mods.Interactive;
 import io.github.danielnaczo.python3parser.model.mods.Module;
 import io.github.danielnaczo.python3parser.model.stmts.Statement;
-import com.github.python3parser.Python3Parser.*;
 
 public class ModuleVisitor extends GenericUnsupportedCSTVisitor<AST>{
 

@@ -36,7 +36,7 @@ grammar Python3;
 tokens { INDENT, DEDENT }
 
 @header {
-package com.github.python3parser;
+package io.github.danielnaczo.python3parser;
 }
 
 @lexer::members {

@@ -1,8 +1,8 @@
 package io.github.danielnaczo.python3parser.visitors.ast;
 
+import io.github.danielnaczo.python3parser.Python3BaseVisitor;
+import io.github.danielnaczo.python3parser.Python3Parser.*;
 import io.github.danielnaczo.python3parser.visitors.exceptions.UnsupportedANTLRMethodException;
-import com.github.python3parser.Python3BaseVisitor;
-import com.github.python3parser.Python3Parser.*;
 
 
 public class GenericUnsupportedCSTVisitor<T> extends Python3BaseVisitor<T>{

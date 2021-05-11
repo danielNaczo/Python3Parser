@@ -6,13 +6,13 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
-import io.github.danielnaczo.python3parser.visitors.ast.ModuleVisitor;
-import io.github.danielnaczo.python3parser.visitors.modifier.ModifierVisitor;
-import com.github.python3parser.Python3Lexer;
-import com.github.python3parser.Python3Parser;
+import io.github.danielnaczo.python3parser.Python3Lexer;
+import io.github.danielnaczo.python3parser.Python3Parser;
 import io.github.danielnaczo.python3parser.model.AST;
 import io.github.danielnaczo.python3parser.model.Identifier;
 import io.github.danielnaczo.python3parser.model.stmts.compoundStmts.functionStmts.FunctionDef;
+import io.github.danielnaczo.python3parser.visitors.ast.ModuleVisitor;
+import io.github.danielnaczo.python3parser.visitors.modifier.ModifierVisitor;
 import io.github.danielnaczo.python3parser.visitors.prettyprint.IndentationPrettyPrint;
 import io.github.danielnaczo.python3parser.visitors.prettyprint.ModulePrettyPrintVisitor;
 
