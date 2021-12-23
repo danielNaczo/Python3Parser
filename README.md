@@ -6,33 +6,36 @@ you can analyze, process and generate Python3-Code. This project offers a *Prett
 Python3 source code. 
 
 
-## Import Python3Parser into your Project --- OUTDATED (is currently migrated from JCenter to Maven Central)
-To include the *Python3Parser* into your project just add the following *dependency* into your Maven-Project:
+## Import Python3Parser into your Project
+To include the *Python3Parser* into your project choose the latest version of the parser on https://search.maven.org/artifact/io.github.danielnaczo/python3parser and integrate the *Python3Parser* with the help of your build tool.
+
+The following shows how you integrate the parser into the most common build tools. Make sure you replace the *X.X.X* with the latest version.
+
+### Maven
+To include the *Python3Parser* into your Maven project just add the following dependency into your *pom.xml*:
 
 ```
 <dependency>
-   <groupId>com.github.python3parser</groupId>
-   <artifactId>python3parser</artifactId>
-   <version>1.0.6</version>
+  <groupId>io.github.danielnaczo</groupId>
+  <artifactId>python3parser</artifactId>
+  <version>X.X.X</version>
 </dependency>
 ```
 
-Make sure you import the latest release, which you can find in https://github.com/danielNaczo/Python3Parser/releases.
-
-When you use Gradle, add the following lines to build.gradle:
+### Gradle
+When you use Gradle, add the following lines to your build.gradle:
 
 ```
-repositories {
-    mavenLocal()
-}
-
 dependencies {
-    compile(group: 'com.github.python3parser', name: 'python3parser', version: '1.0.6')
+    compile(group: 'io.github.danielnaczo', name: 'python3parser', version: 'X.X.X')
 }
 ```
 
-If you have a Scala-based project you have to add the following lines into your *build.sbt* file:
+### Scala
+If you have a Scala-based project you have to add the following code into your *build.sbt* file:
 
 ```
-libraryDependencies += "com.github.python3parser" % "python3parser" % "1.0.6"
-resolvers += Resolver.mavenLocal
+libraryDependencies += "io.github.danielnaczo" % "python3parser" % "X.X.X"
+```
+
+If you use another build tool select the latest version on https://search.maven.org/artifact/io.github.danielnaczo/python3parser and integrate the parser with the corresponding lines of code.
