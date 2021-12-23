@@ -10,11 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - id: install-secret-key
-        name: Install gpg secret key
-        run: |
-          cat <(echo -e "${{ secrets.MAVEN_GPG_PRIVATE_KEY }}") | gpg --batch --import
-          gpg --list-secret-keys --keyid-format LONG
       - name: Set up Maven Central Repository
         uses: actions/setup-java@v2
         with:
@@ -25,6 +20,10 @@ jobs:
           server-password: MAVEN_PASSWORD
           gpg-private-key: MAVEN_GPG_PRIVATE_KEY # Value of the GPG private key to import
           gpg-passphrase: MAVEN_GPG_PASSPHRASE # env variable for GPG private key passphrase
+      - name: Install gpg secret key
+        run: |
+          cat <(echo -e "${{ secrets.MAVEN_GPG_PRIVATE_KEY }}") | gpg --batch --import
+          gpg --list-secret-keys --keyid-format LONG
       - name: Publish package
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
