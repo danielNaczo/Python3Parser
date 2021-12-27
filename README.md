@@ -31,7 +31,7 @@ dependencies {
 }
 ```
 
-### Scala
+### Scala SBT
 If you have a Scala-based project you have to add the following code into your *build.sbt* file:
 
 ```
