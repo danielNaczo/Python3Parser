@@ -169,6 +169,7 @@
                         <exclude>**/manipulation/**/*</exclude>
                         <exclude>**/utilities/**/*</exclude>
                         <exclude>**/visitors/exceptions/**/*</exclude>
+                        <exclude>**/target/**/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
