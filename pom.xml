@@ -149,7 +149,12 @@
                 <version>4.3.0</version>
                 <configuration>
                     <sourceDirectories>
-                        <sourceDirectory>${project.build.directory}/generated-sources/antlr4</sourceDirectory>
+                        <resources>
+                            <resource>
+                                <directory>${project.build.directory}/generated-sources/antlr4</directory>
+                            </resource>
+                        </resources>
+<!--                        <sourceDirectory>${project.build.directory}/generated-sources/antlr4</sourceDirectory>-->
                     </sourceDirectories>
                 </configuration>
                 <dependencies>
