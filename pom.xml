@@ -164,6 +164,13 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.11</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/manipulation/**/*</exclude>
+                        <exclude>**/utilities/**/*</exclude>
+                        <exclude>**/visitors/exceptions/**/*</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>
