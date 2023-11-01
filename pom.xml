@@ -187,7 +187,7 @@
                         </goals>
                         <configuration>
                             <excludes>
-                                <exclude><exclude>**/target/**/*</exclude></exclude>
+                                <exclude>**/target/**/*</exclude>
                             </excludes>
                         </configuration>
                     </execution>
