@@ -169,7 +169,7 @@
                         <exclude>**/manipulation/**/*</exclude>
                         <exclude>**/utilities/**/*</exclude>
                         <exclude>**/visitors/exceptions/**/*</exclude>
-                        <exclude>**/target/**/*</exclude>
+                        <exclude>**/target/**</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -187,7 +187,7 @@
                         </goals>
                         <configuration>
                             <excludes>
-                                <exclude>**/target/**/*</exclude>
+                                <exclude>**/target/**</exclude>
                             </excludes>
                         </configuration>
                     </execution>
