@@ -1,4 +1,4 @@
-# Python3Parser [![build](https://github.com/danielNaczo/Python3Parser/actions/workflows/maven.yml/badge.svg)](https://github.com/danielNaczo/Python3Parser/actions/workflows/maven.yml) [![Publish package to the Maven Central Repository](https://github.com/danielNaczo/Python3Parser/actions/workflows/maven-publish.yml/badge.svg)](https://github.com/danielNaczo/Python3Parser/actions/workflows/maven-publish.yml)
+# Python3Parser [![build](https://github.com/danielNaczo/Python3Parser/actions/workflows/maven.yml/badge.svg)](https://github.com/danielNaczo/Python3Parser/actions/workflows/maven.yml) [![Coverage Status](https://coveralls.io/repos/github/danielNaczo/Python3Parser/badge.svg?branch=master)](https://coveralls.io/github/danielNaczo/Python3Parser?branch=master) [![Publish package to the Maven Central Repository](https://github.com/danielNaczo/Python3Parser/actions/workflows/maven-publish.yml/badge.svg)](https://github.com/danielNaczo/Python3Parser/actions/workflows/maven-publish.yml)
 A java-based Python3-Parser
 
 The *Python3Parser*-Project allows you to parse arbitrary Python3-Code in Java. By generating abstract syntax trees (*ASTs*)
