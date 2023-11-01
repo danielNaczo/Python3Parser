@@ -147,6 +147,11 @@
                 <groupId>org.eluder.coveralls</groupId>
                 <artifactId>coveralls-maven-plugin</artifactId>
                 <version>4.3.0</version>
+                <configuration>
+                    <sourceDirectories>
+                        <sourceDirectory>${project.build.directory}/generated-sources/antlr4</sourceDirectory>
+                    </sourceDirectories>
+                </configuration>
                 <dependencies>
                     <dependency>
                         <groupId>javax.xml.bind</groupId>
@@ -164,6 +169,7 @@
                         <exclude>**/manipulation/**/*</exclude>
                         <exclude>**/utilities/**/*</exclude>
                         <exclude>**/visitors/exceptions/**/*</exclude>
+                        <exclude>**/target/**/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -172,6 +178,18 @@
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
+                    </execution>
+                    <execution>
+                        <id>coverage-report</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude><exclude>**/target/**/*</exclude></exclude>
+                            </excludes>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
