@@ -41,16 +41,15 @@ public abstract class BasicTest {
 	private AST prettyPrintedAST;
 	
 	//prefixes for test files
-	private String eclipseTestPrefix = "examples/";
-	private String intelliJTestPrefix = "../examples/"; //TODO find a better solution for not used attributes
-	
+	protected String pathPrefix = "examples/";
+
 	//name of testfile
 	protected String testFileName;
 	
 	@Before
 	public void setUp() throws Exception {
 		setTestFileName();
-		charStream = fromFileName(eclipseTestPrefix + testFileName);
+		charStream = fromFileName(pathPrefix + testFileName);
 		
 		lexer = new Python3Lexer(charStream);
         tokens = new CommonTokenStream(lexer);
