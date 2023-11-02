@@ -7,6 +7,7 @@ import org.junit.runners.Parameterized;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 @RunWith(Parameterized.class)
 public class ParameterizedTest extends BasicTest {
@@ -15,7 +16,7 @@ public class ParameterizedTest extends BasicTest {
 
     public ParameterizedTest(String testFileName) {
         this.testFileName = testFileName;
-        this.pathPrefix = CPYTHON_DIRECTORY_PATH;
+        this.pathPrefix = "";
     }
 
     @Parameterized.Parameters(name = "{0}")
@@ -25,12 +26,20 @@ public class ParameterizedTest extends BasicTest {
         File cpythonDirectory = new File(CPYTHON_DIRECTORY_PATH);
         File[] dirListing = cpythonDirectory.listFiles();
         if (dirListing != null) {
-            for (File child : dirListing) {
-                fileNames.add(generateObjectArray(child.getName()));
-            }
+            traverseDirectory(fileNames, dirListing);
         }
 
         return fileNames;
+    }
+
+    private static void traverseDirectory(Collection<Object[]> fileNames, File[] dirListing) {
+        for (File child : dirListing) {
+            if (child.isDirectory()) {
+                traverseDirectory(fileNames, child.listFiles());
+            } else if (child.isFile()) {
+                fileNames.add(generateObjectArray(child.getPath()));
+            }
+        }
     }
 
     private static Object[] generateObjectArray(String fileName) {
