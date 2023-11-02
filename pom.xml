@@ -149,12 +149,7 @@
                 <version>4.3.0</version>
                 <configuration>
                     <sourceDirectories>
-                        <resources>
-                            <resource>
-                                <directory>${project.build.directory}/generated-sources/antlr4</directory>
-                            </resource>
-                        </resources>
-<!--                        <sourceDirectory>${project.build.directory}/generated-sources/antlr4</sourceDirectory>-->
+                        <sourceDirectory>${project.build.directory}/generated-sources/antlr4</sourceDirectory>
                     </sourceDirectories>
                 </configuration>
                 <dependencies>
@@ -174,7 +169,7 @@
                         <exclude>**/manipulation/**/*</exclude>
                         <exclude>**/utilities/**/*</exclude>
                         <exclude>**/visitors/exceptions/**/*</exclude>
-                        <exclude>**/target/**</exclude>
+                        <exclude>${project.build.directory}/generated-sources/**/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -192,7 +187,7 @@
                         </goals>
                         <configuration>
                             <excludes>
-                                <exclude>**/target/**</exclude>
+                                <exclude>${project.build.directory}/generated-sources/**/*</exclude>
                             </excludes>
                         </configuration>
                     </execution>
