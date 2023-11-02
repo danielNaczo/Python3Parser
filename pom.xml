@@ -169,7 +169,10 @@
                         <exclude>**/manipulation/**/*</exclude>
                         <exclude>**/utilities/**/*</exclude>
                         <exclude>**/visitors/exceptions/**/*</exclude>
-                        <exclude>**/Python3BaseVisitor.java</exclude>
+                        <exclude>**/Python3BaseVisitor.class</exclude>
+                        <exclude>**/Python3Lexer.class</exclude>
+                        <exclude>**/Python3Parser.class</exclude>
+                        <exclude>**/Python3Visitor.class</exclude>
                     </excludes>
                 </configuration>
                 <executions>
