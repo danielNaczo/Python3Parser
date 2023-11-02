@@ -169,6 +169,8 @@
                         <exclude>**/manipulation/**/*</exclude>
                         <exclude>**/utilities/**/*</exclude>
                         <exclude>**/visitors/exceptions/**/*</exclude>
+                        <exclude>**/Python3BaseVisitor.java</exclude>
+                        <exclude>**/Python3BaseVisitor.class</exclude>
                         <exclude>${project.build.directory}/target/generated-sources/**</exclude>
                     </excludes>
                 </configuration>
