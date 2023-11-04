@@ -166,6 +166,9 @@
                 <version>0.8.11</version>
                 <configuration>
                     <excludes>
+                        <exclude>**/model/**/*</exclude>
+                        <exclude>**/GenericUnsupportedCSTVisitor.class</exclude>
+                        <exclude>**/GenericUnsupportedASTVisitor.class</exclude>
                         <exclude>**/manipulation/**/*</exclude>
                         <exclude>**/utilities/**/*</exclude>
                         <exclude>**/visitors/exceptions/**/*</exclude>
